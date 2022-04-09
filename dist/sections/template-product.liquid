@@ -1,0 +1,151 @@
+{%- render 'product-page', product: product, section: section -%}
+
+{% schema %}
+{
+  "name": "Product",
+  "class": "vue-product",
+  "tag": "section",
+  "limit": 1,
+  "settings": [
+
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "type": "gallery",
+      "name": "Gallery",
+      "limit": 1,
+      "settings": [
+
+      ]
+    },
+    {
+      "type": "title",
+      "name": "Title",
+      "limit": 1,
+      "settings": [
+
+      ]
+    },
+    {
+      "type": "review-badge",
+      "name": "Review stars",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "number_reviews",
+          "label": "Number of reviews",
+          "default": "50"
+        },
+        {
+          "type": "range",
+          "id": "average_rating",
+          "min": 0,
+          "max": 5,
+          "step": 1,
+          "label": "Average rating",
+          "default": 4
+        }
+      ]
+    },
+    {
+      "type": "price",
+      "name": "Price",
+      "limit": 1,
+      "settings": [
+
+      ]
+    },
+    {
+      "type": "color-picker",
+      "name": "Color picker",
+      "limit": 1,
+      "settings": [
+
+      ]
+    },
+    {
+      "type": "size-finder",
+      "name": "Size finder",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Tooltip"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "step_1",
+          "label": "Step 1"
+        },
+        {
+          "type": "text",
+          "id": "step_2",
+          "label": "Step 2"
+        }
+      ]
+    },
+    {
+      "type": "width-picker",
+      "name": "Width picker",
+      "limit": 1,
+      "settings": [
+
+      ]
+    },
+    {
+      "type": "length-picker",
+      "name": "Length picker",
+      "limit": 1,
+      "settings": [
+
+      ]
+    },
+    {
+      "type": "add-to-cart-btn",
+      "name": "Add to cart button",
+      "limit": 1,
+      "settings": [
+
+      ]
+    },
+    {
+      "type": "description",
+      "name": "Description",
+      "limit": 1,
+      "settings": [
+
+      ]
+    },
+    {
+      "type": "dropdown",
+      "name": "Dropdown",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

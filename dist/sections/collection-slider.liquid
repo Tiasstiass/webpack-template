@@ -1,0 +1,42 @@
+{%- render 'collection-slider' section: section -%}
+
+{% schema %}
+{
+  "name": "Collection Slider",
+  "class": "vue-collection-slider",
+  "tag": "section",
+  "settings": [
+
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "COLLECTION"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_prices",
+          "label": "Show products price"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Slider",
+      "category": "Content"
+    }
+  ]
+}
+{% endschema %}

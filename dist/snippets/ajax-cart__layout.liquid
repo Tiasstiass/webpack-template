@@ -1,0 +1,75 @@
+{%- comment -%}
+  Inputs:
+    nothing
+{%- endcomment -%}
+
+<div class="flex flex-col h-full max-h-screen overflow-auto">
+  <div class="flex justify-between items-center py-5 px-4 tablet:px-5 bg-black-800">
+    <div class="font-bold" id="cartHeading">
+      {{ settings.cart_header }}
+    </div>
+    <button class="modal-popup__close">
+      <v-icon icon="modal-close-btn" :height="24" :width="24"></v-icon>
+    </button>
+  </div>
+
+  <div vue
+    class="flex flex-col gap-y-7.5 px-5 py-7.5 overflow-y-auto" 
+  >
+    <cart-products ref="cartProducts" />
+  </div>
+
+  <div class="px-5 pt-7.5 pb-2.5 border-t border-lightgrey mt-auto">
+    <div class="font-bold uppercase">
+      {{ settings.cart_sust_header }}
+    </div>
+    <div 
+      class="text-black-300 mt-5" 
+      id="cartSustainabilityText"
+    >
+      {{ settings.cart_sust_text }}
+    </div>
+  </div>
+
+  <div class="ajax-cart__discount p-5 pb-7.5">
+    <div 
+      id="cartDiscountPlaceholder"
+      class="cursor-pointer uppercase"
+      onClick="this.parentElement.classList.add('active')"
+    >{{ settings.cart_discount_text }}</div>
+  </div>
+
+  <div class="p-5 bg-black-900 flex flex-col gap-5">
+    <div class="flex justify-between">
+      <div class="text-black-300">{{ 'cart.subtotal' | t }}</div>
+      <div id="cartSubTotal">0</div>
+    </div>
+
+    <div class="flex justify-between">
+      <div class="text-black-300">{{ 'common.discount' | t }}</div>
+      <div id="cartDiscount">{{ '0' | money }}</div>
+    </div>
+
+    <div class="flex justify-between">
+      <div class="text-black-300">{{ 'common.delivery_fee' | t }}</div>
+      <div 
+        data-original-amount="{{ settings.cart_shipping_amount }}"
+      >
+        {{ settings.cart_shipping_amount | times: 100 | money }}
+      </div>
+    </div>
+
+    <div class="h-px bg-lightgrey"></div>
+
+    <div class="flex justify-between">
+      <div class="font-bold text-large">{{ 'cart.total' | t }}</div>
+      <div class="font-bold text-large" id="cartTotal">0</div>
+    </div>
+  </div>
+
+  <div class="px-5 pb-10 bg-black-900">
+    <a href="/checkout" class="btn btn-dark block text-center uppercase">
+      {{ 'action.checkout' | t }}
+    </a>
+  </div>
+</div>

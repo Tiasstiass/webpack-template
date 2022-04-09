@@ -1,0 +1,70 @@
+{%- if article.image -%}
+  <div class="w-full">
+    {%- render 'image', image: article.image, class:'w-full blog-article__img object-cover' -%}
+  </div>
+{%- endif -%}
+
+<article class="max-w-3xl flex flex-col justify-center m-auto my-5 px-4 tablet:my-10">
+  <h1>{{ article.title | escape }}</h1>
+  <div class="flex">
+    {%- if section.settings.blog_show_author -%}
+      <p class="pr-2.5">{{ article.author }}</p>
+    {%- endif -%}
+    {%- if section.settings.blog_show_date -%}
+      <p class="border-l-2 border-black-500 border-solid pl-2.5 text-black-500">
+        {{ article.published_at | time_tag: format:"date" }}
+      </p>
+    {%- endif -%}
+  </div>
+
+  <div class="blog-article-content mt-5 tablet:mt-10">
+    {{ article.content }}
+  </div>
+
+  <div class="text-center mt-13 mb-10">
+    {%- if section.settings.social_sharing_blog -%}
+      <p class="h2 text-black-600">{{ 'blog.article.share' | t }}</p>
+      <div class="w-full relative mt-6 mb-13">
+        <hr class="w-full border-t-[1.5px] border-lightgrey absolute top-2 -z-10">
+        <div class="container flex justify-evenly m-auto bg-white px-1 max-w-[60%] tablet:max-w-[50%]">
+          {% render 'icons' icon: 'facebook', size: '26x26', fill: '#151414' %}
+          {% render 'icons' icon: 'pinterest', size: '26x26', fill: '#151414' %}
+          {% render 'icons' icon: 'instagram', size: '26x26', fill: '#151414' %}
+        </div>
+      </div>
+    {%- endif -%}
+    <p class="h2 block tablet:mb-10 text-center mb-8">{{ 'blog.article.next_article' | t }}</p>
+    <div class="flex justify-between">
+      <a class="text-black-300 underline max-w-[40%]" href="{{ blog.previous_article }}">{{
+          blog.previous_article.title
+        }}</a>
+      <a class="text-black-300 underline max-w-[40%]" href="{{ blog.next_article }}">{{ blog.next_article.title }}</a>
+    </div>
+  </div>
+</article>
+
+{% schema %}
+
+{
+  "name": "Article",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "blog_show_date",
+      "default": true,
+      "label": "Show date"
+    }, {
+      "type": "checkbox",
+      "id": "blog_show_author",
+      "default": true,
+      "label": "Show author"
+    }, {
+      "type": "checkbox",
+      "id": "social_sharing_blog",
+      "default": true,
+      "label": "Show social sharing"
+    }
+  ]
+}
+
+{% endschema %}

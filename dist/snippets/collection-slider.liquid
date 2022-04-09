@@ -1,0 +1,31 @@
+{%- comment -%}
+  Inputs:
+    section - section with settings
+{%- endcomment -%}
+
+{% liquid
+  assign blocks = section.blocks | where: "type", "collection"
+%}
+
+<!-- 
+  TODO
+- Add variants url and link them to color swatches
+- Fix index slider
+- Add transition on collection change
+-->
+
+<div vue>
+  <collection-slider
+    :data="
+      [{% for block in blocks %}
+        { 
+          collection_title: {{ block.settings.title | json | replace: '"', "'" }},
+          collection_url: {{ block.settings.collection.url | json | replace: '"', "'" }},
+          show_prices: {{ block.settings.show_prices }},
+          products: {{ block.settings.collection.products | json | replace: '"', "'" }},
+          products_url: [{% for product in block.settings.collection.products %} {{ product.url | json | replace: '"', "'" | append: ',' }} {% endfor %}],
+          products_options: [{% for product in block.settings.collection.products %} {{ product.options_with_values | json | replace: '"', "'" | append: ',' }} {% endfor %}]
+        },
+      {% endfor %}]"
+  ></collection-slider>
+</div>

@@ -1,0 +1,145 @@
+{%- comment -%}
+  Inputs:
+    - block - block or section object
+
+    Optional:
+    - video_thumb - image url
+    - video_url - video url 
+    - video_mobile - video url mobile
+    - type - vimeo or mp4
+    - autoplay - yes or no - for mp4
+    {%- endcomment -%}
+
+{%- liquid 
+  assign thumb = block.settings.video_thumb
+  if thumb == blank
+    assign thumb = video_thumb
+  endif
+
+  if thumb != blank
+    if thumb contains '.jpg'
+      assign thumb = thumb | img_url: '1920x', format: 'pjpg'
+    else
+      assign thumb = thumb | img_url: '1920x'
+    endif
+  endif
+
+  assign thumb_mobile = block.settings.video_thumb_mobile
+  if block.settings.video_thumb_mobile == blank 
+    if block.settings.video_thumb != blank 
+      assign thumb_mobile = block.settings.video_thumb
+    else 
+      assign thumb_mobile = video_thumb
+    endif 
+  endif
+
+  if thumb_mobile != blank
+    if thumb_mobile contains '.jpg'
+      assign thumb_mobile = thumb_mobile | img_url: '768x', format: 'pjpg'
+    else
+      assign thumb_mobile = thumb_mobile | img_url: '768x'
+    endif
+  endif
+
+  assign caption = block.settings.caption
+-%}
+    
+{%- if type == 'vimeo' -%}
+  {%- liquid
+    if block.settings.video_url == blank
+      assign video = video_url
+    else 
+      assign video = block.settings.video_url
+    endif 
+
+    assign video_mobile = block.settings.video_url_mobile
+    if video_mobile == blank
+      assign video_mobile = video
+    endif
+  -%} 
+
+  <div 
+    class="video-section" 
+    data-video-link="{{ video }}" 
+    data-video-link-mobile="{{ video_mobile }}" 
+    data-section-id="{{ block.id }}" 
+    data-force-mobile-image="{{ block.settings.video_thumb_mobile_force | json }}"
+  >
+    <div class="video-wrapper skeleton-loading absolute h-full w-full">
+
+      <div class="video-holder absolute w-full h-full overflow-hidden"></div>
+      {%- if thumb != blank or thumb_mobile != blank -%}
+      <div class="overlay opacity-1 visible">
+        <div class="video-thumbnail absolute h-full w-full overflow-hidden">
+          <picture class="lozad">
+            <source 
+              srcset="{{ thumb }}" 
+              media="(min-width: 768px)" 
+            />
+            <img 
+              srcset="{{ thumb_mobile }}"
+              class="object-cover object-top h-full w-full" 
+            />
+          </picture>
+        </div>
+        <div class="video-button cursor-pointer hover:animate-pulse">{%- render 'icons' icon: 'video-btn' class: 'absolute top-0 left-0 right-0 bottom-0 m-auto w-13 h-13 tablet:w-[4.75rem] tablet:h-[4.75rem]' -%}</div>
+        {%- if caption != blank -%}
+          <h2 class="absolute uppercase text-white w-full text-center top-[58%] tablet:top-[60%] left-1/2 -translate-x-1/2">{{ caption }}</h2>
+        {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+{%- endif -%}
+
+{%- if type == 'mp4' -%}
+  {%- liquid
+    if block.settings.mp4_url == blank
+      assign video_mp4 = mp4_url
+    else 
+      assign video_mp4 = block.settings.mp4_url
+    endif 
+
+    assign video_mobile_mp4 = block.settings.mp4_url_mobile
+    if video_mobile == blank
+      assign video_mobile_mp4 = video
+    endif
+
+  -%}
+  <div class="{% if autoplay == no %}no-autoplay{% else %}with-autoplay{% endif %}">
+  <video 
+    id="{{ section.id }}-video-background"
+    class="w-full h-full lazy object-center object-cover absolute" 
+    {% unless autoplay == 'no' %}
+    autoplay
+    {% endunless %}
+    loop
+    muted
+    {% if video_mobile_mp4 != blank %}
+      data-mobile-vid="{{ video_mobile_mp4 }}" 
+    {% endif %}
+    data-desktop-vid="{{ video_mp4 }}"
+  ></video>
+  {%- if thumb != blank or thumb_mobile != blank -%}
+  <div class="overlay opacity-100 visible">
+    <div class="absolute h-full w-full overflow-hidden">
+      <picture class="lozad">
+        <source 
+          srcset="{{ thumb }}" 
+          media="(min-width: 768px)" 
+        />
+        <img 
+          srcset="{{ thumb_mobile }}"
+          class="object-cover object-top h-full w-full"
+        />
+      </picture>
+    </div>
+    <div class="mp4-button cursor-pointer hover:animate-pulse">{%- render 'icons' icon: 'video-btn' class: 'absolute top-0 left-0 right-0 bottom-0 m-auto w-13 h-13 tablet:w-[4.75rem] tablet:h-[4.75rem]' -%}</div>
+    {%- if caption != blank -%}
+      <h2 class="absolute uppercase text-white w-full text-center top-[58%] tablet:top-[60%] left-1/2 -translate-x-1/2">{{ caption }}</h2>
+    {%- endif -%}
+    </div>
+  {%- endif -%}
+</div>
+{%- endif -%}
+

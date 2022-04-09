@@ -1,0 +1,74 @@
+{%- comment -%}
+  Inputs:
+    nothing
+{%- endcomment -%}
+
+{% liquid
+  assign logo = section.settings.logo
+
+  assign banners = section.blocks | where: "type", "banner"
+%}
+
+<nav-drawer
+  :logo="{{ logo | json | replace: '"', "'" }}"
+  :menu-titles="[
+    {{ linklists[section.settings.menu].title | json | replace: '"', "'" }},
+    {{ linklists[section.settings.menu_2].title | json | replace: '"', "'" }},
+    {{ linklists[section.settings.menu_3].title | json | replace: '"', "'" }}
+  ]"
+  :menus="[
+    [
+      {% for link in linklists[section.settings.menu].links %}
+        {
+          title: {{ link.title | json | replace: '"', "'" }},
+          url: {{ link.url | json | replace: '"', "'" }},
+          sublinks: [
+            {% for subLink in link.links %}
+              {
+                title: {{ subLink.title | json | replace: '"', "'" }},
+                url: {{ subLink.url | json | replace: '"', "'" }}
+              },
+            {% endfor %}
+          ]
+        },
+      {% endfor %}
+    ],
+    [
+      {% for link in linklists[section.settings.menu_2].links %}
+        {
+          title: {{ link.title | json | replace: '"', "'" }},
+          url: {{ link.url | json | replace: '"', "'" }},
+          sublinks: [
+            {% for subLink in link.links %}
+              {
+                title: {{ subLink.title | json | replace: '"', "'" }},
+                url: {{ subLink.url | json | replace: '"', "'" }}
+              },
+            {% endfor %}
+          ]
+        },
+      {% endfor %}
+    ],
+    [
+      {% for link in linklists[section.settings.menu_3].links %}
+        {
+          title: {{ link.title | json | replace: '"', "'" }},
+          url: {{ link.url | json | replace: '"', "'" }},
+          sublinks: [
+            {% for subLink in link.links %}
+              {
+                title: {{ subLink.title | json | replace: '"', "'" }},
+                url: {{ subLink.url | json | replace: '"', "'" }}
+              },
+            {% endfor %}
+          ]
+        },
+      {% endfor %}
+    ]
+  ]"
+  :banners=" [
+    {% for banner in banners %}
+      {{ banner.settings | json | replace: '"', "'" | append: "," }}
+    {% endfor %}
+  ]"
+></nav-drawer>

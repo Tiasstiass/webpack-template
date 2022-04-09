@@ -1,0 +1,148 @@
+{%- render 'hero', section: section -%}
+
+{% schema %}
+{
+  "name": "Hero",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "General"
+    },
+    {
+      "type": "select",
+      "id": "height",
+      "label": "Height",
+      "options": [
+        {
+          "value": "450",
+          "label": "450px"
+        },
+        {
+          "value": "fullscreen",
+          "label": "Fullscreen"
+        }
+      ],
+      "default": "fullscreen"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg",
+      "label": "Image Desktop"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_mobile",
+      "label": "Image Mobile"
+    },
+    {
+      "type": "header",
+      "content": "Text"
+    },
+    {
+      "type": "checkbox",
+      "id": "set_title_h1",
+      "label": "Set title as H1",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#FFF"
+    },
+    {
+      "type": "header",
+      "content": "Content Position"
+    },
+    {
+      "type": "select",
+      "id": "desktop_content_position",
+      "label": "Desktop",
+      "options": [
+        {
+          "value": "left_center",
+          "label": "Left Center"
+        },
+        {
+          "value": "center_center",
+          "label": "Center Center"
+        },
+        {
+          "value": "right_center",
+          "label": "Right Center"
+        }
+      ],
+      "default": "left_center"
+    },
+    {
+      "type": "select",
+      "id": "mobile_content_position",
+      "label": "Mobile",
+      "options": [
+        {
+          "value": "center_center",
+          "label": "Center Center"
+        },
+        {
+          "value": "bottom_left",
+          "label": "Bottom Left"
+        },
+        {
+          "value": "bottom_center",
+          "label": "Bottom Center"
+        }
+      ],
+      "default": "bottom_center"
+    },
+    {
+      "type": "header",
+      "content": "Buttons"
+    },
+    {
+      "type": "paragraph",
+      "content": "Primary button"
+    },
+    {
+      "type": "text",
+      "id": "btn_text",
+      "label": "Text"
+    },
+    {
+      "type": "url",
+      "id": "btn_link",
+      "label": "Link"
+    },
+    {
+      "type": "paragraph",
+      "content": "Secondary button"
+    },
+    {
+      "type": "text",
+      "id": "btn_text_2",
+      "label": "Text"
+    },
+    {
+      "type": "url",
+      "id": "btn_link_2",
+      "label": "Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero",
+      "category": "Content"
+    }
+  ]
+}
+{% endschema %}

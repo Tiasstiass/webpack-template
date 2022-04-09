@@ -1,0 +1,56 @@
+{%- comment -%}
+  Inputs:
+    section - section with settings 
+{%- endcomment -%}
+
+{% liquid
+    assign title = section.settings.title
+    assign description = section.settings.description
+
+    assign img_desktop = section.settings.image_desktop
+    if section.settings.image_mobile
+      assign img_mobile = section.settings.image_mobile
+    else
+      assign img_mobile = section.settings.image_desktop
+    endif
+
+    assign btn_text = section.settings.btn_text
+    assign btn_url = section.settings.btn_url
+
+    if section.settings.desktop_image_position == 'floats_off'
+        assign desktop_position = ' tablet:mb-[3.313rem]'
+    else 
+        assign desktop_position = ' tablet:mb-0'
+    endif
+%}
+
+<div 
+  class="flex flex-col mt-32 mb-10 mx-4 tablet:flex-row desktop:px-28 desktop-xl:max-screen"
+  style="background-color: {{ section.settings.background }};"
+>
+  <div class="tablet:flex-1{{ desktop_position }}">
+    {% render 'image',
+      image: img_desktop,
+      mobile_image: img_mobile,
+      class: "mx-auto mt-[-5.5rem] max-w-[12.688rem] tablet:max-w-[15.688rem]"
+    %}
+  </div>
+  <div
+    class="flex-col flex-center tablet:items-start h-fit m-4 mt-0 py-7 px-4 tablet:m-6 tablet:mt-[-3.25rem] tablet:p-12 tablet:shadow tablet:flex-1 desktop:pl-[6rem] desktop:py-[6rem] desktop:ml-[6.5rem]"
+    style="background-color: {{ section.settings.background_highlight }};"
+  >
+    {%- if title != blank -%}
+      <h2 class="text-black-100">{{ title }}</h2>
+    {%- endif -%}
+
+    {%- if description != blank -%}
+      <div class="text-reg text-black-300 text-center tablet:text-left pt-4 pb-7">
+        {{ description }}
+      </div>
+    {%- endif -%}
+      
+    {%- if btn_text != blank -%}
+      <a class="btn btn-dark" href="{{ btn_url }}">{{ btn_text }}</a>
+    {%- endif -%}
+  </div>
+</div>

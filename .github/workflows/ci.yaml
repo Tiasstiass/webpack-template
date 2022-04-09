@@ -1,0 +1,68 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  CI:
+    name: Compile & Run Tests
+    runs-on: [self-hosted, linux]
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Current Branch
+        run: echo "running on branch ${{ github.event.pull_request.head.ref }}"
+
+      - name: Install Dependencies
+        run: yarn install --check-files
+
+      - name: Build & Compile
+        run: yarn parcel build
+
+      - name: Theme Check
+        uses: shopify/theme-check-action@v1
+
+      - name: Remove Trigger Label from Pull Request
+        uses: buildsville/add-remove-label@v1
+        with:
+          token: ${{secrets.GITHUB_TOKEN}}
+          label: ci
+          type: remove
+
+  # lhci:
+  #   name: Lighthouse
+  #   runs-on: [self-hosted, linux]
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #       with:
+  #         ref: ${{ github.event.pull_request.head.sha }}
+
+  #     - name: Current Branch
+  #       run: echo "running on branch ${{ github.event.pull_request.head.ref }}"
+
+  #     - name: Install Dependencies
+  #       run: yarn install
+
+  #     - name: Build & Compile
+  #       run: packer build
+
+  #     - name: Lighthouse
+  #       uses: shopify/lighthouse-ci-action@1.0
+  #       with:
+  #         app_id: ${{ secrets.LIGHTHOUSE_APP_ID }}
+  #         app_password: ${{ secrets.LIGHTHOUSE_APP_PASS }}
+  #         store: ${{ secrets.LIGHTHOUSE_STORE_URL }}
+  #         password: ${{ secrets.LIGHTHOUSE_STORE_PASS }}
+  #         lhci_github_token: ${{ secrets.LHCI_GITHUB_TOKEN }}
+  #         theme_root: './dist'
+
+  #     - name: Remove Trigger Label from Pull Request
+  #       uses: buildsville/add-remove-label@v1
+  #       with:
+  #         token: ${{secrets.GITHUB_TOKEN}}
+  #         label: ci
+  #         type: remove

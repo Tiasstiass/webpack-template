@@ -1,0 +1,99 @@
+{%- render 'collection-grid' section: section -%}
+
+{% schema %}
+{
+  "name": "Collection Grid",
+  "class": "vue-collection-grid",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_limit",
+      "min": 4,
+      "max": 32,
+      "step": 1,
+      "label": "Products per page",
+      "default": 16
+    },
+    {
+      "type": "checkbox",
+      "id": "infinite_pagination",
+      "label": "Infinite pagination",
+      "info": "Only on collection page",
+      "default": false
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection",
+      "info": "To use outside of collection page"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "banner",
+      "name": "Banner",
+      "settings": [
+        {
+          "type": "select",
+          "id": "banner_width",
+          "label": "Width",
+          "options": [
+            {
+              "value": "1",
+              "label": "1"
+            },
+            {
+              "value": "2",
+              "label": "2"
+            },
+            {
+              "value": "full",
+              "label": "Full"
+            }
+          ],
+          "default": "1"
+        },
+        {
+          "type": "number",
+          "id": "banner_position",
+          "label": "At position:",
+          "default": 5
+        },
+        {
+          "type": "checkbox",
+          "id": "banner_to_bottom",
+          "label": "Snap to bottom",
+          "default": false
+        },
+        {
+          "type": "image_picker",
+          "id": "banner_image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "banner_title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "banner_btn_text",
+          "label": "Button text"
+        },
+        {
+          "type": "url",
+          "id": "banner_btn_url",
+          "label": "Button link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Grid",
+      "category": "Content"
+    }
+  ]
+}
+{% endschema %}

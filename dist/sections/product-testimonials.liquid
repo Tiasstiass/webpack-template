@@ -1,0 +1,136 @@
+{%- render 'product-testimonials', product: product, section: section -%}
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "tag": "section",
+  "class": "vue-product-testimonials",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section title"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Testimonial",
+      "type": "testimonial",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Product"
+        },
+        {
+          "type": "text",
+          "id": "size",
+          "label": "Product size"
+        },
+        {
+          "type": "text",
+          "id": "length",
+          "label": "Product length"
+        },
+        {
+          "type": "header",
+          "content": "Customer"
+        },
+        {
+          "type": "text",
+          "id": "customer_name",
+          "label": "Customer name"
+        },
+        {
+          "type": "select",
+          "id": "country",
+          "label": "Customer Country",
+          "options": [
+            {
+              "value": "select_country",
+              "label": "Select country"
+            },
+            {
+              "value": "germany",
+              "label": "Germany"
+            },
+            {
+              "value": "uk",
+              "label": "UK"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "city",
+          "label": "Customer City"
+        },
+        {
+          "type": "text",
+          "id": "customer_height",
+          "label": "Customer Height"
+        },
+        {
+          "type": "text",
+          "id": "customer_weight",
+          "label": "Customer Weight"
+        },
+        {
+          "type": "text",
+          "id": "shoe_size",
+          "label": "Customer Shoe size"
+        },
+        {
+          "type": "header",
+          "content": "Review ratings"
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "min": 0,
+          "max": 5,
+          "step": 0.5,
+          "label": "Overall rating",
+          "default": 5
+        },
+        {
+          "type": "range",
+          "id": "fit",
+          "min": 0,
+          "max": 5,
+          "step": 0.1,
+          "label": "Fit rating",
+          "default": 5
+        },
+        {
+          "type": "range",
+          "id": "material",
+          "min": 0,
+          "max": 5,
+          "step": 0.1,
+          "label": "Material rating",
+          "default": 5
+        },
+        {
+          "type": "range",
+          "id": "quality",
+          "min": 0,
+          "max": 5,
+          "step": 0.1,
+          "label": "Quality rating",
+          "default": 5
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Review title"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Review"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

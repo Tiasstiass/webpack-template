@@ -1,0 +1,76 @@
+{%- comment -%}
+  Inputs:
+    section - section with settings
+{%- endcomment -%}
+
+<!-- custom styling to enable grid inside slider -->
+{%- style -%}
+  @media (min-width: 768px) {
+    .vue-grid-image-text .splide__list {
+      display: grid !important;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: 1.25rem;
+      row-gap: 3.5rem;
+    }
+  }
+{%- endstyle -%}
+
+{%- assign blocks = section.blocks | where: "type", "image-with-text" -%}
+
+<div vue class="py-10 text-black-100 text-center tablet:px-9 max-screen">
+  <div class="flex justify-between items-center px-4 pb-5 tablet:px-0">
+    <h4 class="inline-block">{{ section.settings.title }}</h4>
+  </div>
+  
+  <splide :options="{ fixedWidth: '94%', pagination: false, padding: '1rem', gap: '1rem', mediaQuery: 'min', breakpoints: {768: {destroy: true,},},}">
+    <template #before-track>
+      <div class="splide__arrows absolute top-[-42px] right-[12px] flex-center gap-9">
+        <button class="splide__arrow splide__arrow--prev [all:unset] tablet:cursor-pointer disabled:opacity-20 disabled:cursor-default">
+          {% render 'icons' icon: 'arrow-left', size: '10x19', fill: '#151414', class: 'tablet:hidden !transform-none' %}
+        </button>
+        <button class="splide__arrow splide__arrow--next [all:unset] tablet:cursor-pointer disabled:opacity-20 disabled:cursor-default">
+          {% render 'icons' icon: 'arrow-right', size: '10x19', fill: '#151414', class: 'tablet:hidden' %}
+        </button>
+      </div>
+    </template>
+
+    {% for block in blocks %}
+      {% liquid
+        assign title = block.settings.title
+        assign description = block.settings.description
+
+        assign img_desktop = block.settings.img_desktop
+        if block.settings.img_mobile
+          assign img_mobile = block.settings.img_mobile
+        else
+          assign img_mobile = block.settings.img_desktop
+        endif
+
+        assign link_text = block.settings.link_text
+        assign link_url = block.settings.link_url 
+      %}
+
+      <splide-slide>
+        {% render 'image',
+        image: img_desktop,
+        mobile_image: img_mobile,
+        class: "grid-image-text__image w-full object-cover object-top"
+        %}
+      
+        {% if title != blank %}
+          <h5 class="pt-[1.375rem]">{{ title }}</h5>
+        {% endif %}
+        
+        {% if description != blank %}
+          <div class="text-xs text-black-300 py-4">{{ description }}</div>
+        {% endif %}
+        
+        {% if link_text != blank %}
+          <a href="{{ link_url }}" class="read-more">{{ link_text }}</a>
+        {% endif %}
+        
+      </splide-slide>
+    {% endfor %}
+  </splide>
+
+</div>

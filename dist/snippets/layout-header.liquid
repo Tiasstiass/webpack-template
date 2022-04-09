@@ -1,0 +1,81 @@
+{%- comment -%}
+  Inputs:
+    section - section with settings
+{%- endcomment -%}
+
+{% liquid
+  if section.settings.logo_dark != blank and section.settings.header_overlap == false
+    assign logo = section.settings.logo_dark
+  elsif section.settings.logo_white != blank and section.settings.header_overlap == true
+    assign logo = section.settings.logo_white
+  endif
+
+  if section.settings.header_overlap
+    assign bg_color = "transparent"
+    assign text_color = "#FFF"
+    assign hover_state = "hover:!header-hover"
+  else
+    assign bg_color = "#FFF"
+    assign text_color = section.settings.text_color
+  endif
+%}
+
+{% unless section.settings.header_overlap %}
+  <div id="header-wrapper"> <!-- wrapper to push page content below header -->
+{% endunless %}
+
+  <div
+    id="header"
+    class="flex justify-between items-center p-5 padding-reg text-xs uppercase group {{ hover_state }}"
+    style="background-color: {{ bg_color }}; color: {{ text_color }};"
+  >
+    <!-- logo -->
+    <a href="{{ routes.root_url }}" title="{{ shop.name }}">
+      {%- if logo -%}
+        {%- render 'image',
+          image: logo,
+          class: 'w-[7.5rem] tablet:w-[8.125rem]'
+        -%}
+      {%- else  -%}
+        <span class="h1">{{ shop.name | split: "-" | first }}</span>
+      {%- endif -%}
+    </a>
+
+    <!-- mega-menu -->
+    {%- render 'nav-mega-menu', section: section -%}
+
+    <!-- icons -->
+    <div vue id="icons" class="flex items-center gap-x-7">
+      <button
+        type="button"
+        class="hidden tablet:block"
+      >
+        <a href="/account">
+          <v-icon icon="account" :height="21" :width="21" color="{{ text_color }}"></v-icon>
+        </a>
+      </button>
+
+      <button
+        type="button" 
+        class="modal-trigger cursor-pointer"
+        data-modal-id="ajax-cart"
+      >
+        <v-icon icon="cart" :height="20" :width="18" color="{{ text_color }}" ></v-icon>
+      </button>
+      
+      <button
+        type="button" 
+        class="modal-trigger cursor-pointer tablet:hidden"
+        data-modal-id="drawer-menu"
+      >
+        <v-icon icon="burger" :height="17" :width="20" color="{{ text_color }}"></v-icon>
+      </button>
+
+      <country-picker type="header" icon-color="{{ text_color }}"/></country-picker>
+    </div>
+
+  </div>
+
+{% unless section.settings.header_overlap %}
+  </div>
+{% endunless %}

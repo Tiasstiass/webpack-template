@@ -1,0 +1,82 @@
+{%- comment -%}
+  Inputs:
+    section - section with settings
+{%- endcomment -%}
+
+{%- liquid
+  assign text_color = section.settings.text_color
+
+  if section.settings.height == '450'
+    assign height = '28rem'
+  else
+    assign max_height = 'max-height: 43.75rem'
+  endif
+
+  assign title = section.settings.title
+  assign subtitle = section.settings.subtitle
+
+  assign btn_text = section.settings.btn_text
+  assign btn_link = section.settings.btn_link
+  assign btn_text_2 = section.settings.btn_text_2
+  assign btn_link_2 = section.settings.btn_link_2
+
+  if section.settings.mobile_content_position == 'bottom_left'
+    assign mobile_content_position = 'text-left'
+    assign mobile_btn_position = 'mobile:justify-start'
+  elsif section.settings.mobile_content_position == 'center_center'
+    assign mobile_content_position = 'center-center text-center'
+  else
+    assign mobile_content_position = 'center-x text-center'
+  endif
+
+  if section.settings.desktop_content_position == 'left_center'
+    assign desktop_content_position = 'tablet:left-0 tablet:p-10 tablet:text-left'
+    assign desktop_btn_position = 'tablet:justify-start'
+  elsif section.settings.desktop_content_position == 'right_center'
+    assign desktop_content_position = 'tablet:left-[unset] tablet:p-10 tablet:right-0 tablet:text-right'
+    assign desktop_btn_position = 'tablet:justify-end'
+  else
+    assign desktop_content_position = 'tablet:center-x tablet:text-center'
+    assign desktop_btn_position = 'tablet:justify-center'
+  endif
+
+-%}
+
+<div
+  class="relative"
+  style="color: {{ text_color }}; height: {{ height }}; {{ max_height }}"
+>
+
+  {% render 'image',
+      image: section.settings.bg,
+      mobile_image: section.settings.bg_mobile,
+      style: max_height
+      class: "object-cover object-top h-full w-full"
+  %}
+
+  <div class="absolute bottom-[10%] h-max max-w-lg p-2.5 tablet:center-y {{ mobile_content_position }}  {{ desktop_content_position }}">
+
+    {%- if title != blank -%}
+      {%- if section.settings.set_title_h1 -%}
+        <h1>{{ title }}</h1>
+      {%- else -%}
+        <div class="h1">{{ title }}</div>
+      {%- endif -%}
+    {%- endif -%}
+
+    {%- if subtitle != blank -%}
+      <div class="mt-4">{{ subtitle }}</div>
+    {%- endif -%}
+
+    <div class="flex justify-center gap-8 mt-10 {{ mobile_btn_position }}  {{ desktop_btn_position }}">
+      {%- if btn_text != blank -%}
+        <a href="{{ btn_link }}" class="btn btn-light">{{ btn_text }}</a>
+      {%- endif -%}
+
+      {%- if btn_text_2 != blank -%}
+        <a href="{{ btn_link_2 }}" class="btn btn-light-outline">{{ btn_text_2 }}</a>
+      {%- endif -%}
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,40 @@
+{%- comment -%}
+  Inputs:
+    content - modal content
+    id - modal id
+    extraClasses - extra classes [sidebar-right]
+    extraAttributes - custom parameters for popup window, e.g. for set custom styles
+    section - section object
+{%- endcomment -%}
+
+{%- liquid 
+  if section.settings.desktop_bg != blank
+    if section.settings.desktop_bg contains '.jpg'
+      assign desktop_bg_url = section.settings.desktop_bg | img_url: '1920x', format: 'pjpg'
+    else
+      assign desktop_bg_url = section.settings.desktop_bg | img_url: '1920x'
+    endif
+  endif
+
+  if section.settings.mobile_bg != blank
+    if section.settings.mobile_bg contains '.jpg'
+      assign mobile_bg_url = section.settings.mobile_bg | img_url: '767x', format: 'pjpg'
+    else
+      assign mobile_bg_url = section.settings.mobile_bg | img_url: '767x'
+    endif
+  endif
+-%}
+
+<aside vue class="modal-popup {{ extraClasses }}" data-modal-id="{{ id }}">
+  <div 
+    class="modal-popup__content"{{ extraAttributes }} 
+    {% if section.settings.mobile_bg != blank %} 
+      data-bg="{{ mobile_bg_url }}" 
+    {% endif %} 
+    {% if section.settings.desktop_bg != blank %} 
+      data-bg-md="{{ desktop_bg_url }}" 
+    {% endif %}
+  >
+    {{ content }}
+  </div>
+</aside>

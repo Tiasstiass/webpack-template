@@ -1,0 +1,69 @@
+{%- comment -%}
+Inputs:
+section - section with settings
+{%- endcomment -%}
+
+{%- liquid
+  assign text_color = section.settings.text_color
+  assign title = section.settings.title
+  assign subtitle = section.settings.subtitle
+  assign description_title = section.settings.description_title
+  assign description = section.settings.description
+  assign arrow_height = section.settings.arrow_height
+  assign arrow = section.settings.arrow
+
+if section.settings.desktop_content_alignment == 'left'
+  assign desktop_alignment = 'tablet:left-0 tablet:p-10 tablet:text-left'
+elsif section.settings.desktop_content_alignment == 'right'
+  assign desktop_alignment = 'tablet:left-[unset] tablet:p-10 tablet:right-0 tablet:text-right'
+else
+  assign desktop_alignment = 'tablet:center-x tablet:text-center'
+endif
+
+-%}
+
+<div class="relative" style="color: {{ text_color }}">
+
+  {% render 'image',
+  image: section.settings.image_desktop,
+  mobile_image: section.settings.image_mobile,
+  class: "object-cover object-top h-full w-full"
+  %}
+
+  <div class="absolute h-max max-w-lg p-2.5 top-[25%]  text-center {{ desktop_alignment }}">
+
+    {%- if title != blank -%}
+     <h1 class="text-white">{{ title }}</h1>
+    {%- endif -%}
+
+    {%- if subtitle != blank -%}
+      <div class="mt-4 text-black-700" >{{ subtitle }}</div>
+    {%- endif -%}
+  </div>
+
+  <div class="absolute h-max w-full tablet:max-w-lg p-2.5 bottom-[10%] text-center {{ desktop_alignment }}">
+    {%- if arrow -%}
+      <div class="arrow-container block relative pt-20 text-center before:absolute before:-bottom-[2px] before:left-[50%] before:-ml-[1px] before:w-[1.5px] before:content-['']">
+        <span class="arrow-down block m-auto w-4 h-10 after:content-[''] after:absolute after:bottom-0 after:block after:m-0 after:p-0 after:w-[14px] after:h-[15px] after:border-t-[1.5px] after:border-solid after:border-[#525254] after:border-r-[1.5px] after:rotate-[135deg]"></span>
+      </div>
+    {%- endif -%}
+
+    {%- if description_title != blank -%}
+     <h2 class="mt-5">{{ description_title }}</h2>
+    {%- endif -%}
+
+    {%- if description != blank -%}
+      <div class="mt-4 text-black-700">{{ description }}</div>
+    {%- endif -%}
+  </div>
+  
+
+</div>
+
+
+{%- style -%} 
+.arrow-container:before {
+    height: {{ arrow_height }}px;
+    background: linear-gradient(180deg, #F5F5F5 -20.49%, rgba(255, 255, 255, 0) 138.89%);
+}
+{%- endstyle -%}

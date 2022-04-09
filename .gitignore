@@ -1,0 +1,23 @@
+# generated files
+node_modules
+*node_modules
+package-lock.json
+yarn.lock
+*config.yml
+.idea
+.history
+/.history
+license.md
+dist/assets/main.css
+dist/assets/main.js
+dist/assets/vue.*
+
+# local files
+*.code-workspace
+*.DS_Store
+*.lock
+*lab.*
+.cache
+.parcel-cache
+yarn-error.log
+prettier.config.js

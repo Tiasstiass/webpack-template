@@ -1,0 +1,45 @@
+{%- render 'image-grid', section: section -%}
+
+{% schema %}
+{
+  "name": "Image grid",
+  "tag": "section",
+  "max_blocks": 3,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image-grid",
+      "name": "Grid item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "img_desktop",
+          "label": "Image desktop"
+        },
+        {
+          "type": "image_picker",
+          "id": "img_mobile",
+          "label": "Image mobile"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image grid",
+      "category": "Content"
+    }
+  ]
+}
+{% endschema %}

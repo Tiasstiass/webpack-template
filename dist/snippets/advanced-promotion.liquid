@@ -1,0 +1,119 @@
+{%- comment -%}
+  Inputs:
+    section - section with settings
+{%- endcomment -%}
+
+{%- style -%}
+  {%- for block in section.blocks -%}
+    {%- if block.settings.video_url != blank -%}
+      .block-{{ block.id }} .video-holder {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        overflow: hidden;
+        position: relative;
+      }
+      .block-{{ block.id }} .video-holder iframe {
+        width: 100vw;
+        min-width: 115vh;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 75vh;
+        min-height: 65vh;
+      }
+      @media 
+      only screen and (min-device-width: 320px) 
+      and (max-device-width: 480px) 
+      and (-webkit-device-pixel-ratio: 2) 
+      and (device-aspect-ratio: 2/3)
+      {
+          .block-{{ block.id }} .video-holder iframe {
+            width: 134vh;
+          }
+      }
+      @media (min-width: 768px) and (max-width: 820px) {
+        .block-{{ block.id }} .video-holder iframe {
+          height: 65vh;
+          min-height: 60vh;
+        }
+      }
+      @media (min-width: 820px) and (max-width: 1065px) {
+        .block-{{ block.id }} .video-holder iframe {
+          height: 70vh;
+          min-height: 65vh;
+        }
+      }
+      @media (min-width: 1065px) {
+        .block-{{ block.id }} .video-holder iframe {
+          height: 75vh;
+          min-height: 70vh;
+        }
+      }
+    {%- endif -%}
+  {%- endfor -%}
+{%- endstyle -%}
+
+
+<div class="w-full flex flex-col tablet:flex-row gap-0 my-10">
+
+  {%- for block in section.blocks -%}
+    {%- liquid 
+      assign title = block.settings.title
+      assign button_url = block.settings.button_url
+      assign button_text = block.settings.button_text
+      
+      assign bg_color = block.settings.bg_color
+      assign width = block.settings.block_width
+    -%}
+    <div
+      style="flex-basis: {{ width }}%; background: {{ bg_color }}"
+      class="block-{{ block.id }} w-full grow-1 shrink-1 relative min-h-[22.5rem] max-h-[22.5rem] tablet:min-h-[37.5rem] tablet:max-h-[37.5rem]"
+    >
+      <div class="-z-1 flex w-full h-full absolute">
+        {%- if block.settings.desktop_image != blank -%}
+          {%- render 'image',
+            image: block.settings.desktop_image,
+            mobile_image: block.settings.mobile_image,
+            class: 'object-cover object-center w-full h-full absolute' 
+          -%}
+        {%- endif -%}
+
+        {%- if block.settings.video_url != blank -%}
+          {%- render 'video',
+            block: block,
+            video_url: block.settings.video_url,
+            video_mobile: block.settings.video_url_mobile
+            type: 'vimeo'
+          -%}
+        {%- endif -%}
+
+        {%- if block.settings.mp4_url != blank -%}
+          {%- render 'video',
+            block: block,
+            video: block.settings.mp4_url,
+            video_mobile: block.settings.mp4_url_mobile
+            type: 'mp4'
+          -%}
+        {%- endif -%}
+      </div>
+      
+      <div class="max-w-prose h-full absolute flex flex-col justify-between items-start px-4 py-10 tablet:py-15 tablet:pl-10 top-0">
+        {%- if title != blank -%}
+          <h2 class="text-white uppercase">{{ title }}</h2>
+        {%- endif -%}
+        {%- if button_url != blank -%}
+          <a href="{{ button_url }}" class="btn btn-light capitalize">{{ button_text }}</a>
+        {%- endif -%}
+      </div>  
+
+    </div>
+  {%- endfor -%}
+</div>
+
+
+
+

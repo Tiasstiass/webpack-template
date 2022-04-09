@@ -1,0 +1,92 @@
+{%- render 'about-us', section: section -%}
+
+{% schema %}
+{
+  "name": "About us",
+  "class": "about-us",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "VIDEOS"
+    },
+    {
+      "type": "video_url",
+      "id": "video_url",
+      "label": "Vimeo Desktop",
+      "accept": [
+        "vimeo"
+      ]
+    },
+    {
+      "type": "video_url",
+      "id": "video_url_mobile",
+      "label": "Vimeo Mobile",
+      "accept": [
+        "vimeo"
+      ],
+      "info": "If not set, desktop video will be used instead"
+    },
+    {
+      "type": "text",
+      "id": "mp4_url",
+      "label": "MP4 Desktop"
+    },
+    {
+      "type": "text",
+      "id": "mp4_url_mobile",
+      "label": "MP4 Mobile",
+      "info": "If not set, mp4 desktop video will be used instead"
+    },
+    {
+      "type": "image_picker",
+      "id": "video_thumb",
+      "label": "Video thumbnail desktop"
+    },
+    {
+      "type": "image_picker",
+      "id": "video_thumb_mobile",
+      "label": "Video thumbnail mobile"
+    },
+    {
+      "type": "text",
+      "id": "caption",
+      "label": "Caption"
+    },
+    {
+      "type": "header",
+      "content": "TEXT"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "header",
+      "content": "IMAGES"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_desktop",
+      "label": "Image desktop"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Image mobile"
+    }
+  ],
+  "presets": [
+    {
+      "name": "About us",
+      "category": "General"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,41 @@
+{%- comment -%}
+  Inputs:
+    section - section with settings
+{%- endcomment -%}
+
+{%- liquid 
+    assign blocks = section.blocks | where: "type", "image-grid"
+    assign title = section.settings.title
+-%}
+
+<div class="my-10 tablet:px-9 max-screen">
+  {%- if title != blank -%}
+    <h2 class="px-4 pb-5 tablet:pb-12 text-center text-black-100">{{ title }}</h2>
+  {%- endif -%}
+  <div class="flex flex-col tablet:flex-row gap-5">
+    {%- for block in blocks -%}
+      {%- liquid
+        assign img_desktop = block.settings.img_desktop
+        if block.settings.img_mobile
+          assign img_mobile = block.settings.img_mobile
+        else
+          assign img_mobile = block.settings.img_desktop
+        endif
+        assign text = block.settings.text
+      -%}
+      <div class="relative flex-1">
+        {%- if img_desktop != blank -%}
+          {% render 'image',
+          image: img_desktop,
+          mobile_image: img_mobile,
+          class: "object-cover object-top h-full w-full brightness-[0.7]"
+          %}
+        {%- endif -%}
+        {%- if text != blank %}
+          <h2 class="absolute center-center text-white">{{ text }}</h2>
+        {%- endif -%}
+      </div>
+    {%- endfor -%}
+  </div>
+    
+</div>

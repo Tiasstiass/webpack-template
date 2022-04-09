@@ -1,0 +1,37 @@
+{% layout 'theme' %}
+
+<div class="max-w-md m-auto py-10 px-4 text-reg">
+  <h1 class="uppercase">{{'customer.account.register_heading' | t }}</h1>
+
+    {% comment %} Customer Account Login {% endcomment %}
+    
+    <div>
+
+      {%- form 'create_customer', class: "flex flex-col" -%}
+      <div class="py-5 text-red text-center">
+        {{ form.errors | default_errors }}
+        
+        {%- if form.posted_successfully? -%}
+        {{ 'customer.registration.success' | t }}
+        {%- endif -%} 
+      </div>
+      <label for="first-name" class="font-semibold">{{ 'form.first_name' | t }}</label>
+      <input required class="h-12 mb-8 mt-2 border border-black-100 rounded-sm pl-4" type="text"     name="customer[first_name]" value="" size="30" placeholder="Enter your first name" autocorrect="off" autocapitalize="off" autofocus>
+      <label for="last-name" class="font-semibold">{{ 'form.last_name' | t }}</label>
+      <input required class="h-12 mb-8 mt-2 border border-black-100 rounded-sm pl-4" type="text"     name="customer[last_name]" value="" size="30" placeholder="Enter your last name" autocorrect="off" autocapitalize="off" autofocus>
+      <label for="email" class="font-semibold">{{ 'form.email' | t }}</label>
+      <input required class="h-12 mb-8 mt-2 border border-black-100 rounded-sm pl-4" type="email"    name="customer[email]"  value="" size="30" placeholder="Enter your email" autocorrect="off" autocapitalize="off" autofocus>
+      <label for="password" class="font-semibold">{{ 'form.password' | t }}</label>
+      <input required class="h-12 mb-8 mt-2 border border-black-100 rounded-sm pl-4"" type="password" name="customer[password]" value="" size="30" placeholder="Confirm your password" autocorrect="off" autocapitalize="off" autofocus class="{% if form.errors contains 'password' %} error{% endif %}">
+
+      <input type="hidden" name="return_to" value="/account/register" /> 
+
+      <button class="h-10 bg-black-100 text-white rounded-sm uppercase" value="Create" type="submit">{{ 'customer.entry.create_account' | t }}</button>
+      <div class="px-7 mt-4">
+        <p>{{ "customer.account.agree" | t }} <a class="underline text-blue" href="/policies/terms-of-service">{{ 'customer.account.terms' | t }}</a> {{ "customer.account.and" | t }} <a class="underline text-blue" href="/policy/privacy-policy">{{ 'customer.account.privacy_policy' | t }}</a> {{ 'customer.account.agree2' | t }}</p>
+        <p class="text-center mt-10 text-black-500">{{ "customer.account.already_have" | t }} <span class="font-bold text-black-100"><a href="{{ routes.account_login_url }}">{{ 'customer.account.sign_in' | t }}</a></span></p>
+      </div>
+      {%- endform -%}
+
+    </div>
+</div>

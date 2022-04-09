@@ -1,0 +1,64 @@
+{%- comment -%}
+  Inputs:
+    section - section with settings
+{%- endcomment -%}
+
+{% liquid
+  if section.settings.img_position == 'left'
+    assign img_position = 'desktop:flex-row'
+    assign padding = 'desktop:pl-20 desktop:pr-10'
+  else
+    assign img_position = 'desktop:flex-row-reverse'
+    assign padding = 'desktop:pr-20 desktop:pl-10'
+  endif
+
+  assign title = section.settings.title
+  assign description = section.settings.description
+
+  assign img_desktop = section.settings.image_desktop
+  if section.settings.image_mobile
+    assign img_mobile = section.settings.image_mobile
+  else
+    assign img_mobile = section.settings.image_desktop
+  endif
+
+  assign btn_text = section.settings.btn_text
+  assign btn_url = section.settings.btn_url
+  assign btn_text_2 = section.settings.btn_text_2
+  assign btn_url_2 = section.settings.btn_url_2
+%}
+
+<div class="flex flex-col my-10 px-4 {{ img_position }} tablet:px-10 desktop-xl:max-screen">
+
+  <div class="desktop:w-3/5">
+    {%- render 'image',
+      image: img_desktop,
+      mobile_image: img_mobile,
+      class: 'object-cover object-top w-full h-full min-h-[19.5rem] max-h-[24.5rem]'
+    -%}
+  </div>
+
+  <div 
+    class="flex-col flex-center {{ padding }} px-1.5 py-11 desktop:py-0 desktop:gap-x-24 desktop:w-2/5 desktop:items-start"
+    style="background-color: {{ section.settings.background }};"
+  >
+    {%- if title != blank -%}
+      <h2 class="text-black-100">{{ title }}</h2>
+    {%- endif -%}
+
+    {%- if description != blank -%}
+      <div class="text-reg text-black-300 max-w-md text-center desktop:text-left py-5 desktop:pt-6">{{ description }}</div>
+    {%- endif -%}
+
+    <div class="flex-center gap-7 text-center">
+      {%- if btn_text != blank -%}
+        <a class="btn btn-dark" href="{{ btn_url }}">{{ btn_text }}</a>
+      {%- endif -%}
+
+      {%- if btn_text_2 != blank -%}
+        <a class="btn btn-outline" href="{{ btn_url_2 }}">{{ btn_text_2 }}</a>
+      {%- endif -%}
+    </div>
+
+  </div>
+</div>

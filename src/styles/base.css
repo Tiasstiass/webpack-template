@@ -1,0 +1,45 @@
+/* Base styling */
+@layer base {
+  html {
+    @apply font-main;
+  }
+  h1 {
+    @apply h1;
+  }
+  h2 {
+    @apply heading-reg
+  }
+  p {
+    @apply text-reg;
+  }
+  input {
+    outline: none
+  }
+  svg {
+    pointer-events: none;
+  }
+  svg > * {
+    pointer-events: none;
+  }
+  #header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    transition: all 0.4s ease-out;
+  }
+  progress { 
+    max-height: 0.25rem;
+  }
+  progress::-webkit-progress-bar {
+    height: 0.25rem;
+    border-radius: 0.25rem;
+    background: #F2F2F2;
+    vertical-align: middle;
+  }
+  progress::-webkit-progress-value {
+    border-radius: 0.25rem;
+    background: #000;
+  }
+}

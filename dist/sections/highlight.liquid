@@ -1,0 +1,82 @@
+{%- render 'highlight', section: section -%}
+
+{% schema %}
+{
+  "name": "Highlight Image with text",
+  "class": "highlight-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image_desktop",
+      "label": "Image Desktop"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Image Mobile"
+    },
+    {
+      "type": "select",
+      "id": "desktop_image_position",
+      "label": "Position image on desktop",
+      "options": [
+        {
+          "value": "stick_bottom",
+          "label": "Sticks to bottom"
+        },
+        {
+          "value": "floats_off",
+          "label": "Floats off bottom"
+        }
+      ],
+      "default": "floats_off"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "background_highlight",
+      "label": "Text background color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Text"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "btn_text",
+      "label": "Button text"
+    },
+    {
+      "type": "url",
+      "id": "btn_url",
+      "label": "Button link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Highlight image with text",
+      "category": "Content"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,86 @@
+{%- render 'layout-footer' section: section -%}
+
+{% schema %}
+{
+  "name": "Footer",
+  "class": "vue-footer",
+  "tag": "footer",
+  "settings": [
+    {
+      "type": "header",
+      "content": "General"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#151414"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Newsletter"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_title",
+      "label": "Title",
+      "default": "Subscribe to our newsletter and receive 10% off your first order"
+    },
+    {
+      "type": "header",
+      "content": "Socials"
+    },
+    {
+      "type": "text",
+      "id": "socials_title",
+      "label": "Title",
+      "default": "Follow Us"
+    },
+    {
+      "type": "checkbox",
+      "id": "social",
+      "label": "Enable social icons",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Policies"
+    },
+    {
+      "type": "checkbox",
+      "id": "payments",
+      "label": "Enable payment icons",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Menu",
+      "type": "menu",
+      "settings": [
+        {
+          "type": "text",
+          "id": "menu_title",
+          "label": "Menu title"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

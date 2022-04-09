@@ -1,0 +1,50 @@
+{%- comment -%}
+  Inputs:
+    section - section with settings
+{%- endcomment -%}
+
+{% liquid
+  assign title = section.settings.title
+
+  unless section.settings.infinite_pagination
+    if section.settings.products_limit
+      assign products_limit = section.settings.products_limit
+    endif
+  endunless
+
+  if section.settings.collection != blank
+    assign collection = section.settings.collection
+  else
+    assign collection = collection
+  endif
+
+  assign banners = section.blocks | where: "type", "banner"
+%}
+
+<!-- 
+  TODO
+- Add variants url and link them to color swatches
+- Fix index slider
+- Add transition on collection change
+-->
+
+<div vue class="my-10 padding-reg desktop-xl:max-screen">
+  {%- paginate collection.products by products_limit -%}
+
+    <collection-grid
+      :data="
+        { 
+          collection_title: '{{ collection.title }}',
+          products: {{ collection.products | json | replace: '"', "'" }},
+          products_url: [{% for product in collection.products %} {{ product.url | json | replace: '"', "'" | append: ',' }} {% endfor %}],
+          products_options: [{% for product in collection.products %} {{ product.options_with_values | json | replace: '"', "'" | append: ',' }} {% endfor %}]
+        }"
+      :banners-data="
+        [{% for banner in banners %}
+          {{ banner.settings | json | replace: '"', "'" | append: "," }}
+        {% endfor %}]"
+    ></collection-grid>
+
+    {% render 'pagination', paginate: paginate %}
+  {%- endpaginate -%}
+</div>

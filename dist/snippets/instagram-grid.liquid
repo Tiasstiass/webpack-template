@@ -1,0 +1,44 @@
+{%- comment -%}
+  Inputs:
+    section - section with settings
+{%- endcomment -%}
+
+{%- liquid
+  assign title = section.settings.title
+  assign link_text = section.settings.link_text
+  assign background = section.settings.bg_color
+  
+  assign blocks = section.blocks | where: "type", "quick-buy"
+-%}
+
+<div vue>
+  <instagram-grid
+    :settings="{{ section.settings | json | replace: '"', "'" }}"
+    :data="
+      [
+        {% for block in blocks %}
+          {
+          image: {{ block.settings.image | json | replace: '"', "'" }},
+          image_modal: {{ block.settings.image_modal | json | replace: '"', "'" }},
+          products: 
+            [
+              { 
+                item: {{ all_products[block.settings.product_first] | json | replace: '"', "'" }},
+                options_with_values: {{ all_products[block.settings.product_first].options_with_values | json | replace: '"', "'" }},
+                hotspot_vertical: {{ block.settings.first_product_vertical_position }},
+                hotspot_horizontal: {{ block.settings.first_product_horizontal_position }}
+              },
+              {% if block.settings.product_second != blank %}
+                {
+                  item: {{ all_products[block.settings.product_second] | json | replace: '"', "'" }},
+                  options_with_values: {{ all_products[block.settings.product_second].options_with_values | json | replace: '"', "'" }},
+                  hotspot_vertical: {{ block.settings.second_product_vertical_position }},
+                  hotspot_horizontal: {{ block.settings.second_product_horizontal_position }}
+                }
+              {% endif %}
+            ]
+          },
+        {% endfor %}
+      ]"
+  ></instagram-grid>
+</div>

@@ -1,0 +1,113 @@
+{%- render 'advanced-promotion', section: section -%}
+
+{% schema %}
+{
+  "name": "Advanced promotion",
+  "tag": "section",
+  "max_blocks": 3,
+  "blocks": [
+    {
+      "name": "Promotion",
+      "type": "promotion",
+      "settings": [
+        {
+          "type": "range",
+          "id": "block_width",
+          "min": 20,
+          "max": 60,
+          "step": 5,
+          "unit": "%",
+          "label": "Width",
+          "default": 30
+        },
+        {
+          "type": "header",
+          "content": "Background settings"
+        },
+        {
+          "type": "paragraph",
+          "content": "IMAGES"
+        },
+        {
+          "type": "image_picker",
+          "id": "desktop_image",
+          "label": "Desktop image"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "Mobile image",
+          "info": "If not set, desktop image will be used instead"
+        },
+        {
+          "type": "paragraph",
+          "content": "VIDEOS"
+        },
+        {
+          "type": "video_url",
+          "id": "video_url",
+          "label": "Vimeo Desktop",
+          "accept": [
+            "vimeo"
+          ]
+        },
+        {
+          "type": "video_url",
+          "id": "video_url_mobile",
+          "label": "Vimeo Mobile",
+          "accept": [
+            "vimeo"
+          ],
+          "info": "If not set, desktop video will be used instead"
+        },
+        {
+          "type": "text",
+          "id": "mp4_url",
+          "label": "MP4 Desktop"
+        },
+        {
+          "type": "text",
+          "id": "mp4_url_mobile",
+          "label": "MP4 Mobile",
+          "info": "If not set, mp4 desktop video will be used instead"
+        },
+        {
+          "type": "paragraph",
+          "content": "COLOR"
+        },
+        {
+          "type": "color",
+          "id": "bg_color",
+          "label": "Background Color",
+          "default": "#000"
+        },
+        {
+          "type": "header",
+          "content": "Content"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button text"
+        },
+        {
+          "type": "url",
+          "id": "button_url",
+          "label": "Button link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Advanced promotion",
+      "category": "General"
+    }
+  ]
+}
+{% endschema %}

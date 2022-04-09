@@ -1,0 +1,51 @@
+{%- render 'press-reviews' -%}
+
+{% schema %}
+{
+  "name": "Press Reviews",
+  "class": "vue-press-reviews",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "img_desktop",
+      "label": "Image Desktop"
+    },
+    {
+      "type": "image_picker",
+      "id": "img_mobile",
+      "label": "Image Mobile"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background color",
+      "default": "#FFFFFF"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Review",
+      "type": "review",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Press Reviews",
+      "category": "Content"
+    }
+  ]
+}
+{% endschema %}

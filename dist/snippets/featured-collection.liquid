@@ -1,0 +1,37 @@
+{%- comment -%}
+  Inputs:
+    section - section with settings
+{%- endcomment -%}
+
+{%- assign blocks = section.blocks | where: "type", "collection" -%}
+
+<div class="max-screen text-white flex flex-col gap-y-4 py-10 px-4 tablet:flex-row tablet:gap-x-5 tablet:px-10">
+  {% for block in blocks %}
+    {% liquid
+      assign title = block.settings.title
+
+      assign img = block.settings.image
+
+      assign link_text = block.settings.link_text
+      assign link_url = block.settings.link_url 
+    %}
+
+    <div class="relative flex-1">
+      {% render 'image',
+        image: img,
+        class: "object-cover object-top brightness-[0.8] min-h-[23.75rem] h-full max-h-[31.25rem]"
+      %}
+
+      <div class="absolute flex flex-col bottom-0 px-4 py-6 tablet:px-10">
+        {% if title != blank %}
+          <h4 class="heading-reg mb-5">{{ title }}</h4>
+        {% endif %}
+        
+        {% if link_text != blank %}
+          <a href="{{ link_url }}" class="btn btn-light-outline">{{ link_text }}</a>
+        {% endif %}
+      </div>
+    </div>
+
+  {% endfor %}
+  </div>

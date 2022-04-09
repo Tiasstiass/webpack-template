@@ -1,0 +1,51 @@
+{%- comment -%}
+  Inputs:
+    section - section with settings
+{%- endcomment -%}
+
+{%- liquid 
+  assign background = section.settings.background
+  assign desc_color = section.settings.desc_color
+  assign text_color = section.settings.text_color 
+
+  assign blocks = section.blocks | where: "type", "text-with-link"
+
+  if blocks.size > 1
+    assign layout = 'flex justify-around gap-y-12 flex-col tablet:flex-row'
+  else
+    assign layout = 'flex-center'
+  endif
+-%}
+<div class="my-10" style="background:{{ background }};">
+  <div class="desktop-xl:max-screen py-26 px-12 gap-x-4 items-center tablet:py-32 {{ layout }}">
+
+    {%- for block in blocks -%}
+      {%- liquid 
+        assign title = block.settings.title
+        assign description = block.settings.description
+      
+        assign btn_text = block.settings.btn_text
+        assign btn_link = block.settings.btn_url
+      -%}
+
+      <div 
+        class="flex flex-col justify-between max-w-sm text-reg text-center" 
+        style="color: {{ text_color }};">
+
+          {%- if title != blank -%}
+            <h3>{{ title }}</h3>
+          {%- endif -%}
+          
+          {%- if description != blank -%}
+            <div class="text-center pt-4 pb-6" style="color: {{ desc_color }};">{{ description }}</div>
+          {%- endif -%}
+
+          {%- if btn_text != blank -%}
+            <a class="read-more" href="{{ btn_link }}">{{ btn_text }}</a>
+          {%- endif -%}
+      </div>
+      
+    {%- endfor -%}
+
+  </div>
+</div>

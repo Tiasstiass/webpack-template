@@ -1,0 +1,27 @@
+{% comment %}
+  Inputs
+    product - product object
+{% endcomment %}
+
+<script id="productJson" type="application/json">
+  {{ product | json }}
+</script>
+
+<script id="productMetafieldsJson" type="application/json">
+  {% assign namespaces = "general,my_fields" | split: "," %}
+  {
+    {% for namespace in namespaces %}
+    "{{ namespace }}": {
+      {% for field in product.metafields[namespace] %}
+        "{{ field[0] }}": "{{ field[1] }}"
+        {%- if forloop.index < product.metafields[namespace].size -%}
+        ,
+        {%- endif -%}
+      {% endfor %}
+    }
+      {%- if forloop.index < namespaces.size -%}
+      ,
+      {%- endif -%}
+    {% endfor %}
+  }
+</script>

@@ -1,0 +1,111 @@
+{% render 'instagram-grid', section: section %}
+
+
+{%- render 'modal-popup'
+  id: 'insta-quick-buy'
+  extraClasses: 'h-full overflow-y-scroll overflow-x-hidden items-start p-4'
+  extraAttributes: 'id="instaModal" style="width: 100vw; padding: 0; margin:auto; max-width: 90rem"'
+-%}
+
+{% schema %}
+{
+  "name": "Instagram quick-buy",
+  "class": "vue-instagram",
+  "tag": "section",
+  "max_blocks": 5,
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#FAF6F0"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "as seen on you"
+    },
+    {
+      "type": "text",
+      "id": "link_text",
+      "label": "Link text",
+      "default": "Follow @SANVTOFFICIAL on instagram"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "quick-buy",
+      "name": "Quick buy",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_modal",
+          "label": "Image inside modal"
+        },
+        {
+          "type": "header",
+          "content": "Products"
+        },
+        {
+          "type": "product",
+          "id": "product_first",
+          "label": "First Product"
+        },
+        {
+          "type": "range",
+          "id": "first_product_vertical_position",
+          "step": 5,
+          "min": 0,
+          "max": 100,
+          "label": "First product - Vertical Hotspot Position",
+          "default": 25
+        },
+        {
+          "type": "range",
+          "id": "first_product_horizontal_position",
+          "step": 5,
+          "min": 0,
+          "max": 100,
+          "label": "First product - Horizontal Hotspot Position",
+          "default": 50
+        },
+        {
+          "type": "product",
+          "id": "product_second",
+          "label": "Second Product"
+        },
+        {
+          "type": "range",
+          "id": "second_product_vertical_position",
+          "step": 5,
+          "min": 0,
+          "max": 100,
+          "label": "Second Product - Vertical Hotspot Position",
+          "default": 50
+        },
+        {
+          "type": "range",
+          "id": "second_product_horizontal_position",
+          "step": 5,
+          "min": 0,
+          "max": 100,
+          "label": "Second Product - Horizontal Hotspot Position",
+          "default": 50
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Instagram quick-buy",
+      "category": "Content"
+    }
+  ]
+}
+{% endschema %}

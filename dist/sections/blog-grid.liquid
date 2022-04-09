@@ -1,0 +1,32 @@
+{%- render 'blog-grid' -%}
+
+{% schema %}
+{
+    "name": "Blog Grid",
+    "class": "vue-blog-grid",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Blog title",
+        "info": "If not added, blog name will be used."
+      },
+      {
+        "type": "blog",
+        "id": "blog_category",
+        "label": "Pick blog category",
+        "info": "If not picked, default blog will be used instead."
+      },
+      {
+        "type": "range",
+        "id": "article_limit",
+        "min": 4,
+        "max": 32,
+        "step": 1,
+        "label": "Blog posts per page",
+        "default": 12
+      }
+    ]
+  }
+{% endschema %}

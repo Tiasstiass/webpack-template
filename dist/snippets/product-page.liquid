@@ -1,0 +1,31 @@
+{%- comment -%}
+  Product separate page
+  Inputs:
+    - product - product object
+    - section - section object
+{%- endcomment -%}
+
+<div vue class="text-reg pb-10 tablet:padding-reg desktop-xl:max-screen">
+  {%- render 'breadcrumbs' -%}
+
+    <!-- {%- case block.type -%} -->
+
+      <!-- {%- when '@app' -%} -->
+        <!-- {% render block %} -->
+
+      <!-- {%- else -%} -->
+        <product
+          :blocks="
+            [
+              {%- for block in section.blocks -%}
+                {
+                  settings: {{ block.settings | json | replace: '"', "'" }},
+                  type: {{ block.type | json | replace: '"', "'" }}
+                },
+              {%- endfor -%}
+            ]"
+          :product="{{ product | json | replace: '"', "'" }}"
+          :product-options="{{ product.options_with_values | json | replace: '"', "'" }}"
+        ></product>
+
+    <!-- {%- endcase -%} -->

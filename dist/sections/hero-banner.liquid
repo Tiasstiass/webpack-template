@@ -1,0 +1,88 @@
+{%- render 'hero-banner', section: section -%}
+
+{% schema %}
+{
+  "name": "Hero banner",
+  "settings": [
+     {
+      "type": "text",
+      "id": "title",
+      "label": "Hero Title",
+      "default": "Our story"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Hero Subtitle",
+      "default": "Luxury Quality.Fair Prices."
+    },
+    {
+      "type": "text",
+      "id": "description_title",
+      "label": "Hero Description Title",
+      "default": "Better Made Essentials"
+    },{
+      "type": "richtext",
+      "id": "description",
+      "label": "Hero Description"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#FFF"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_desktop",
+      "label": "Hero Image Desktop"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Hero Image Mobile"
+    },
+    {
+      "type": "select",
+      "id": "desktop_content_alignment",
+      "label": "Desktop - Content Alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "checkbox",
+      "id": "arrow",
+      "label": "Enable Arrow",
+      "default": true 
+    },
+    {
+      "type": "range",
+      "id": "arrow_height",
+      "min": 50,
+      "max": 250,
+      "step": 10,
+      "unit": "px",
+      "label": "Vertical Arrow Padding",
+      "default": 180
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Banner"
+    }
+  ]
+}
+{% endschema %}

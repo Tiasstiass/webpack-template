@@ -1,0 +1,43 @@
+{%- comment -%}
+  Inputs:
+    nothing
+{%- endcomment -%}
+
+{%- style -%}
+  .cart__sustainability-text kg,
+  .cart__sustainability-text trees { /* dynamically added elements */
+    color: #151414;
+    font-weight: bold;
+  }
+  #discount-app {
+    display: none;
+  }
+  .ajax-cart__discount.active #cartDiscountPlaceholder {
+    display: none;
+  }
+  .ajax-cart__discount.active #discount-app {
+    display: block;
+  }
+  .ajax-cart__wrapper .progress-bar {
+    margin-top: 10px;
+  }
+{%- endstyle -%}
+
+{%- capture layout -%}
+  {%- render 'ajax-cart__layout' -%}
+{%- endcapture -%}
+
+{%- render 'modal-popup'
+  id: 'ajax-cart'
+  extraClasses: 'ajax-cart sidebar-right'
+  extraAttributes: 'id="ajaxCart" style="width: 484px; max-width: 85vw;"'
+  content: layout
+-%}
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    setTimeout(() => { // delay for vue wait
+      theme.cart.updateAjaxCart();
+    }, 500);
+  });
+</script>

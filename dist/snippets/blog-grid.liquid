@@ -1,0 +1,37 @@
+{%- comment -%}
+  Blog grid
+  Inputs:
+    section - section with settings
+{%- endcomment -%}
+
+{%- liquid
+ 
+  if section.settings.blog_category != blank
+    assign blog = section.settings.blog_category
+  else
+    assign blog = blog
+  endif
+
+  assign title = section.settings.title | default: blogs[section.settings.blog_category].title
+  assign article_limit = section.settings.article_limit
+-%}
+<div class="mb-10 padding-reg desktop-xl:max-screen">
+  <div vue>
+    {%- paginate blog.articles by article_limit -%}
+        {%- liquid
+          for article in blog.articles 
+            assign date = article.published_at | date: "%b %d, %Y"
+          endfor  
+
+        -%}
+        <grid-blog
+          heading="{{ title }}"
+          :urls="[{% for article in blog.articles %}{{ article.url | json | replace: '"', "'" | append: "," }}{% endfor %}]"
+          :images="[{% for article in blog.articles %}{{ article.image | json | replace: '"', "'" | append: "," }}{% endfor %}]"
+          :dates="[{% for article in blog.articles %}{{ date | json | replace: '"', "'" | append: "," }}{% endfor %}]"
+          :articles="{{ blog.articles | json | replace: '"', "'" }}"
+          ></grid-blog>
+        {% render 'pagination', paginate: paginate %}
+    {%- endpaginate -%}
+  </div>
+</div>

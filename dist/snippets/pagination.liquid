@@ -1,0 +1,55 @@
+{%- if paginate.pages > 1 -%}
+  <nav class="max-w-xs mx-auto mt-10 text-reg tablet:mt-16">
+    <ol class="flex-between text-black-500">
+
+      {%- if paginate.previous -%}
+        <li aria-label="{{ 'action.pagination.previous' | t }}">
+          <a href="{{ paginate.previous.url }}">
+            <span aria-hidden="true">
+              {% render 'icons' icon: 'arrow-left', size: '10x19', fill: '#151414' %}
+            </span>
+          </a>
+        </li>
+      {%- else -%}
+        <li class="disabled">
+          <span aria-hidden="true">
+            {% render 'icons' icon: 'arrow-left', size: '10x19', fill: '#151414', class: 'hidden' %}
+          </span>
+        </li>
+      {%- endif -%}
+
+      <ol class="flex-center gap-x-4">
+        {%- for part in paginate.parts -%}
+          {%- if part.is_link -%}
+            <li>
+              <a href="{{ part.url }}">{{ part.title }}</a>
+            </li>
+          {%- else -%}
+            {%- if part.title == paginate.current_page -%}
+              <li class="text-black-100" aria-current="page">{{ part.title }}</li>
+            {%- else -%}
+              <li>{{ part.title }}</li>
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </ol>
+
+      {%- if paginate.next -%}
+        <li aria-label="{{ 'action.pagination.next' | t }}">
+          <a href="{{ paginate.next.url }}">
+            <span aria-hidden="true">
+              {% render 'icons' icon: 'arrow-right', size: '10x19', fill: '#151414' %}
+            </span>
+          </a>
+        </li>
+      {%- else -%}
+        <li class="disabled">
+          <span aria-hidden="true">
+            {% render 'icons' icon: 'arrow-right', size: '10x19', fill: '#151414', class: 'hidden' %}
+          </span>
+        </li>
+      {%- endif -%}
+
+    </ol>
+  </nav>
+{%- endif -%}

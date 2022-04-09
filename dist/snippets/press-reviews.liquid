@@ -1,0 +1,55 @@
+{%- comment -%}
+  Inputs:
+    section - section with settings
+{%- endcomment -%}
+
+{% liquid
+    assign img_desktop = section.settings.img_desktop
+    if section.settings.img_mobile
+      assign img_mobile = section.settings.img_mobile
+    else
+      assign img_mobile = section.settings.img_desktop
+    endif
+
+    assign background = section.settings.background
+
+    assign blocks = section.blocks | where: "type", "review"
+%}
+
+<div class="flex flex-col tablet:flex-row my-10 px-4 tablet:px-10 desktop-xl:max-screen">
+    <div class="w-full tablet:w-1/2">
+        {% render 'image',
+        image: img_desktop,
+        mobile_image: img_mobile,
+        class: "object-cover object-top w-full press-review__img"
+        %}
+    </div>
+    <div class="w-full tablet:w-1/2 flex-center px-7 pt-10 pb-6 overflow-hidden" style="background: {{ background }};">
+      <div vue>
+        <splide :options="{ width: '100%', height: '100%', arrows: false, pagination: true, classes:{ pagination: 'splide__pagination splide__parent_dots', page: 'splide__pagination__page press-reviews__pagination'}}">
+          {%- for block in blocks -%}
+
+            {% liquid 
+              assign description = block.settings.description
+              assign logo = block.settings.logo
+            %}
+
+            <splide-slide>
+              <div class="flex-center flex-col">
+                {%- if logo != blank -%}
+                  {% render 'image',
+                  image: logo,
+                  class: "press-review__logo"
+                  %}
+                {%- endif -%}
+                {%- if description != blank -%}
+                  <div class="pt-6 text-black-300 text-reg max-w-screen-mobile mx-auto text-center mb-12 text-overflow">{{ description }}</div>
+                {%- endif -%}
+              </div>
+            </splide-slide>
+
+          {%- endfor -%}
+        </splide>
+      </div>
+    </div>
+</div>

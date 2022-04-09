@@ -1,0 +1,10 @@
+@import '../../node_modules/@splidejs/splide/dist/css/splide-core.min.css';
+@import './base';
+@import './components';
+@import './utilities';
+@import './modules/modal-popup.scss';
+@import './modules/skeleton.scss';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

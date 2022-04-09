@@ -1,0 +1,9 @@
+config/settings_data.json
+templates/404.json
+templates/cart.json
+templates/list-collections.json
+templates/page.contact.json
+templates/page.json
+templates/page.wishlist.json
+templates/password.json
+templates/search.json

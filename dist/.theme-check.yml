@@ -1,0 +1,39 @@
+# The directory where theme folders are located
+root: dist
+
+ignore:
+  - node_modules/*
+  - src/*
+
+TemplateLength:
+  enabled: false
+
+LiquidTag:
+  enabled: false
+  ignore: []
+  min_consecutive_statements: 8
+
+NestedSnippet:
+  enabled: true
+  ignore: []
+  max_nesting_level: 6
+
+ImgWidthAndHeight:
+  enabled: false
+  ignore: []
+
+DeprecateLazysizes:
+  enabled: false
+  ignore: []
+
+DeprecateBgsizes:
+  enabled: false
+  ignore: []
+
+ImgLazyLoading:
+  enabled: false
+  ignore: []
+
+RemoteAsset:
+  enabled: false
+  ignore: []

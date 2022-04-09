@@ -1,0 +1,140 @@
+{%- comment -%}
+    @ version - 2.0
+---------------------------------------------------------------------------------------------
+    @info:
+      Snippet for rendering responsive images.
+    @params:
+      - image        - (required) - an image object
+      - tablet_image - (optional) - provides support for a different tablet image
+      - mobile_image - (optional) - provides support for a different mobile image
+      - style        - (optional) - pass styles argument
+      - max_width    - (optional) - establishes the default image maximum width
+      - class        - (optional) - class selector for editing styles (already has a unique ID)
+                                  - in order to correctly target the image, the selector
+                                    will have to be targeted as ".class img { // custom CSS }"
+---------------------------------------------------------------------------------------------
+    @accepted image formats:
+      - JPEG / JPG
+      - progressive JPEG
+      - PNG
+      - GIF
+---------------------------------------------------------------------------------------------
+    @maximum accepted image sizes:
+      - 20 megapixels
+      - 20 megabytes
+---------------------------------------------------------------------------------------------
+    @default media sources
+      - Desktop: 1599x, 1679x, 1919x, 2159x, 2303x, 2559x, 2879x, 2999x, 3839x, 4095x
+      - Tablet: 767x, 1023x, 1439x
+      - Mobile: 319x, 374x, 424x
+---------------------------------------------------------------------------------------------
+  TODO: - implement max_width
+        - send your own sources as param
+{%- endcomment -%}
+
+{%- liquid
+  assign mobile_src = "319x, 374x, 424x, 767x" | split: ", "
+  assign tablet_src = "1023x, 1365x, 1439x" | split: ", "
+  assign desktop_src = "1599x, 1679x, 1919x, 2159x, 2303x, 2559x, 2879x, 2999x, 3839x, 4095x" | split: ", "
+-%}
+
+{%- capture mobilePictureSource -%}
+  <!-- MOBILE SIZES -->
+  {%- assign srcset = mobile_src -%}
+  {%- for size in srcset -%}
+
+    {%- liquid
+      assign srcset_width = size | minus: 'x'
+      assign retina = srcset_width | times: 2
+      assign retinaX = retina | plus: 'x'
+
+      if mobile_image != blank
+        assign source = mobile_image
+      else
+        assign source = image
+      endif
+    -%}
+
+    <source
+      type="image/webp"
+      media="(max-width: {{ size | minus: 'x' }}px)"
+      srcset="{{ source.src | img_url: size }} 1x{% if retina < source.width %}, {{ source.src | img_url: retinaX, scale: 2 }} 2x{% endif %}"
+    >
+    {%- comment -%}
+    {%- if source.width <= srcset_width -%}
+      {%- break -%}
+    {%- endif -%}
+    {%- endcomment -%}
+
+  {%- endfor -%}
+{%- endcapture -%}
+
+{%- capture tabletPictureSource -%}
+  <!-- TABLET SIZES -->
+  {%- assign srcset = tablet_src -%}
+  {%- for size in srcset -%}
+
+    {%- liquid
+      assign srcset_width = size | minus: 'x'
+      assign retina = srcset_width | times: 2
+      assign retinaX = retina | plus: 'x'
+
+      if tablet_image != blank
+        assign source = tablet_image
+      else
+        assign source = image
+      endif
+    -%}
+
+    <source
+      type="image/webp"
+      media="(max-width: {{ size | minus: 'x' }}px)"
+      srcset="{{ source.src | img_url: size }} 1x{% if retina < source.width %}, {{ source.src | img_url: retinaX, scale: 2 }} 2x{% endif %}"
+    >
+    {%- if source.width <= srcset_width -%}
+      {%- break -%}
+    {%- endif -%}
+
+  {%- endfor -%}
+{%- endcapture -%}
+
+{%- capture desktopPictureSource -%}
+  <!-- DESKTOP SIZES -->
+  {%- assign srcset = desktop_src -%}
+  {%- for size in srcset -%}
+
+    {%- liquid
+      assign srcset_width = size | minus: 'x'
+      assign retina = srcset_width | times: 2
+      assign retinaX = retina | plus: 'x'
+
+      assign source = image
+    -%}
+
+    <source
+      type="image/webp"
+      media="(max-width: {{ size | minus: 'x' }}px)"
+      srcset="{{ source.src | img_url: size }} 1x{% if retina < source.width %}, {{ source.src | img_url: retinaX, scale: 2 }} 2x{% endif %}"
+    >
+
+    {%- if source.width <= srcset_width -%}
+      {%- break -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endcapture -%}
+
+
+<picture id="Image--{{ image.id }}">
+
+  {{ mobilePictureSource }}
+  {{ tabletPictureSource }}
+  {{ desktopPictureSource }}
+
+  <img
+    src="{{ image.src | img_url: 'master' }}"
+    alt="{{ image.alt }}"
+    height="auto"
+    {% if style != blank %}style="{{ style }}"{% endif %}
+    {% if class != blank %}class="{{ class }}"{% endif %}
+  >
+</picture>

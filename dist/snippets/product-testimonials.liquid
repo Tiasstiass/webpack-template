@@ -1,0 +1,139 @@
+{%- comment -%}
+  Product testimonials
+{%- endcomment -%}
+
+{%- liquid
+    assign heading = section.settings.heading
+    assign blocks = section.blocks | where: "type", "testimonial"
+-%}
+
+<div class="my-10 px-4 tablet:pl-10 tablet:pr-0 max-screen">
+  {%- if heading != blank -%}
+  <div class="flex justify-between items-center pb-4 tablet:pb-5">
+    <h2 class="inline-block">{{ heading }}</h2>
+  </div>
+  {%- endif -%}
+  <div vue>
+    <splide :options="{ fixedWidth: '100%', pagination: false, gap: '3.125rem', mediaQuery: 'min', breakpoints: {768: {fixedWidth: '47.9%'}},}">
+      <template #before-track>
+        <div class="splide__arrows absolute top-[-45px] right-0 tablet:right-[45px] flex-center gap-9">
+          <button class="splide__arrow splide__arrow--prev disabled:opacity-20 disabled:cursor-default">
+            <v-icon icon="arrow-left" :height="20" :width="11" color="#151414"></v-icon>
+          </button>
+          <button class="splide__arrow splide__arrow--next disabled:opacity-20 disabled:cursor-default">
+              <v-icon icon="arrow-left" :height="20" :width="11" color="#151414" flipped></v-icon>
+          </button>
+        </div>
+      </template>
+
+      {%- for block in blocks -%}
+        {%- liquid
+          assign size = block.settings.size
+          assign length = block.settings.length
+          
+          assign customer_name = block.settings.customer_name
+          assign country = block.settings.country
+          assign city = block.settings.city
+          assign height = block.settings.customer_height 
+          assign weight = block.settings.customer_weight
+          assign shoe_size = block.settings.shoe_size
+          
+          assign overall_rating = block.settings.rating 
+          
+          assign fit_rating = block.settings.fit 
+          assign material_rating = block.settings.material 
+          assign quality_rating = block.settings.quality 
+          assign title = block.settings.title 
+          assign description = block.settings.description
+
+
+          assign material_progress = material_rating | times: 100.0 | divided_by: 5 | round
+          assign fit_progress = fit_rating | times: 100.0 | divided_by: 5 | round
+          assign quality_progress = quality_rating | times: 100.0 | divided_by: 5 | round
+
+        -%}
+        <splide-slide>
+          <div class="flex flex-col desktop:flex-row p-4 desktop:p-7 border-[1.5px] border-black-700">
+              <div class="w-full desktop:w-2/5 flex flex-col gap-y-1.5 pb-4 desktop:pb-0 desktop:pr-7 border-black-700 border-b-[1.5px] desktop:border-r-[1.5px] desktop:border-b-0 text-reg">
+                  <h2 class="text-reg font-bold mb-2">{{ product.title }}</h2>
+                  {%- if size != blank -%}
+                    <div class="flex justify-between">
+                      <span class="text-black-200">{{ 'product.testimonial.size' | t | append: ':' }}</span>
+                      <span class="text-black-400">{{ size }}</span>
+                    </div>
+                  {%- endif -%}
+                  {%- if length != blank -%}
+                    <div class="flex justify-between">
+                      <span class="text-black-200">{{ 'product.testimonial.length' | t | append: ':' }}</span>
+                      <span class="text-black-400">{{ length }}</span>
+                    </div>
+                  {%- endif -%}
+                  {%- if customer_name != blank -%}
+                    <h3 class="text-black-100 font-bold mt-5">{{ customer_name }}</h3> 
+                  {%- endif -%}
+                  <span class="inline-flex items-center">
+                    {%- if country == 'germany' -%}
+                      {%- render 'icons', icon: 'germany', size: '20x13' -%}
+                    {%- else -%} 
+                      {%- comment -%} NEED SVG FOR UK FLAG 
+                      {%- render 'icons', icon: 'uk', size: '20x13' -%}{%- endcomment -%}
+                    {%- endif -%}
+                    <span class="pl-2 text-black-400">{{ city }}</span>
+                  </span>
+                  {%- if height != blank -%}
+                  <div class="flex justify-between">
+                    <span class="text-black-200">{{ 'product.testimonial.size' | t | append: ':' }}</span>
+                    <span class="text-black-400">{{ height }}</span>
+                  </div>
+                {%- endif -%}
+                {%- if weight != blank -%}
+                <div class="flex justify-between">
+                  <span class="text-black-200">{{ 'product.testimonial.weight' | t | append: ':' }}</span>
+                  <span class="text-black-400">{{ weight }}</span>
+                </div>
+              {%- endif -%}
+              {%- if shoe_size != blank -%}
+                <div class="flex justify-between">
+                  <span class="text-black-200">{{ 'product.testimonial.shoe_size' | t | append: ':' }}</span>
+                  <span class="text-black-400">{{ shoe_size }}</span>
+                </div>
+              {%- endif -%}
+              </div>
+              <div class="w-full desktop:w-3/5 pt-6 desktop:pt-0 desktop:pl-7 text-reg">
+
+                {%- if overall_rating != blank -%}
+                    <v-rating :data="
+                    {
+                      overallRating: {{ overall_rating }},
+                      text: '{{ 'product.testimonial.overall_rating' | t }}',
+                    }"></v-rating>
+                {%- endif -%}
+
+                <div class="flex text-xxs items-baseline pb-3 pt-6 desktop:pt-4">
+                  <progress class="min-w-[7rem] w-28" max="100" value="{{ fit_progress }}">{{ fit_progress }}</progress>
+                  <span class="text-black-100 pl-4 pr-1">{{ fit_rating }}</span>
+                  <h3 class="text-black-400">{{ 'product.testimonial.fit' | t }}</h3>
+                </div>
+                <div class="flex text-xxs items-baseline pb-3">
+                  <progress class="min-w-[7rem] w-28" max="100" value="{{ material_progress }}">{{ material_progress }}</progress>
+                  <span class="text-black-100 pl-4 pr-1">{{ material_rating }}</span>
+                  <h3 class="text-black-400">{{ 'product.testimonial.material' | t }}</h3>
+                </div>
+                <div class="flex text-xxs items-baseline">
+                  <progress class="min-w-[7rem] w-28" max="100" value="{{ quality_progress }}">{{ quality_progress }}</progress>
+                  <span class="text-black-100 pl-4 pr-1">{{ quality_rating }}</span>
+                  <h3 class="text-black-400">{{ 'product.testimonial.quality_and_finishing' | t }}</h3>
+                </div>
+                {%- if title != blank -%} 
+                  <h3 class="text-black-400 pt-6 desktop:pt-4 pb-3">{{ title }}</h3>
+                {%- endif -%}
+                {%- if description != blank -%} 
+                  <div class="text-black-200 text-reg">{{ description }}</div>
+                {%- endif -%}
+              </div>
+          </div>
+        </splide-slide>
+      {%- endfor -%}
+    </splide>
+  </div>
+</div>

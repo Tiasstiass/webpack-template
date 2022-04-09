@@ -1,0 +1,118 @@
+<div class="{{ section.id }}">
+  <div class="headings">
+    <h1 class="underline">This is an H1.</h1>
+    <h2>This is an H2.</h2>
+    <h3>This is an H3.</h3>
+    <h4>This is an H4.</h4>
+    <h5>This is an H5.</h5>
+    <p class="heading-h1">This is a paragraph with an H1 class.</p>
+    <p class="heading-h2">This is a paragraph with an H2 class.</p>
+    <p class="heading-h3">This is a paragraph with an H3 class.</p>
+    <p class="heading-h4">This is a paragraph with an H4 class.</p>
+    <p class="heading-h5">This is a paragraph with an H5 class.</p>
+    <button class="button-primary">This is a primary button</button>
+    <p class="text-medium" style="max-width: 500px; margin: 0 auto;">Medium Text Example:<br>Nulla auctor sed felis ut cursus. Morbi nec felis in quam accumsan consectetur. Fusce hendrerit feugiat libero, et rhoncus massa vestibulum vitae. In et augue. Nulla auctor sed felis ut cursus. Morbi nec felis in quam accumsan consectetur. Fusce hendrerit feugiat libero, et rhoncus massa vestibulum vitae. In et augue.</p>
+    <br>
+    <p class="text-small" style="max-width: 500px; margin: 0 auto;">Small Text Example:<br>Nulla auctor sed felis ut cursus. Morbi nec felis in quam accumsan consectetur. Fusce hendrerit feugiat libero, et rhoncus massa vestibulum vitae. In et augue. Nulla auctor sed felis ut cursus. Morbi nec felis in quam accumsan consectetur. Fusce hendrerit feugiat libero, et rhoncus massa vestibulum vitae. In et augue.</p>
+    <br>
+    <p class="image-caption">Image Caption Example</p>
+    <br>
+    <p class="title-tag">TITLE TAG EXAMPLE</p>
+    <button class="button-secondary">This is a secondary button</button>
+    <a href="/" class="button-primary">This is a link with button class</a>
+    <a href="/" class="button-secondary">This is a link with secondary button class</a>
+  </div>
+</div>
+<div class="{{ section.id }}">
+  <div class="headings">
+    <h1 class="font-bold text-black-300">This is an H1 with color-black-300.</h1>
+    <h2 class="text-darkblue">This is an H2.</h2>
+    <h3>This is an H3.</h3>
+    <h4>This is an H4.</h4>
+    <h5>This is an H5.</h5>
+    <h6>This is an H5.</h6>
+    <p class="text-base">This is a paragraph with the base class.</p>
+    <p class="text-sm">This is a paragraph with a text-sm class.</p>
+    <p class="text-xs">This is a paragraph with a text-xs class.</p>
+    <p class="text-xxs">This is a paragraph with a text-xxs class.</p>
+    <p class="text-tiny">This is a paragraph with a text-tiny class.</p>
+    <p class="text-little pb-5">This is a paragraph with a text-little class.</p>
+    <button class="btn btn-dark">Dark button</button>
+    <button disabled class="btn btn-dark">Dark disabled button</button>
+    <p class="text-base py-5">Medium Text Example:<br>Nulla auctor sed felis ut cursus. Morbi nec felis in quam accumsan consectetur. Fusce hendrerit feugiat libero, et rhoncus massa vestibulum vitae. In et augue. Nulla auctor sed felis ut cursus. Morbi nec felis in quam accumsan consectetur. Fusce hendrerit feugiat libero, et rhoncus massa vestibulum vitae. In et augue.</p>
+    <br>
+    <p class="text-xs">Small Text Example:<br>Nulla auctor sed felis ut cursus. Morbi nec felis in quam accumsan consectetur. Fusce hendrerit feugiat libero, et rhoncus massa vestibulum vitae. In et augue. Nulla auctor sed felis ut cursus. Morbi nec felis in quam accumsan consectetur. Fusce hendrerit feugiat libero, et rhoncus massa vestibulum vitae. In et augue.</p>
+    <br>
+    <p class="image-caption">Image Caption Example</p>
+    <br>
+    <h5 class="uppercase font-semibold pb-4">TITLE TAG EXAMPLE</h5>
+    <button class="btn btn-outline">Outline button</button>
+    <button disabled class="btn btn-outline">Outline disabled button</button>
+    <a href="/" class="btn-text px-5">Button</a>
+    <a href="/" class="read-more">Read more</a>
+    <a href="/" class="view-more">View more</a>
+  </div>
+</div>
+  
+  <logo-slider element=></logo-slider>
+
+{% schema %}
+{
+  "name": "Example Section V2",
+  "class": "example-section",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "desktop_image",
+      "label": "Desktop Image"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "text",
+      "default": "title"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "link",
+      "name": "Link",
+      "settings": [
+        {
+          "id": "linkurl",
+          "type": "url",
+          "label": "URL link"
+        },
+        {
+          "id": "linktext",
+          "type": "text",
+          "label": "Link text"
+        }
+      ]
+    },
+    {
+      "type": "test",
+      "name": "test",
+      "settings": [
+        {
+          "id": "subtitle",
+          "type": "text",
+          "label": "subtitle"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Example Section V2",
+      "category": "Content"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,122 @@
+{%- comment -%}
+  Inputs:
+    section - section object with settings
+{%- endcomment -%}
+
+{% liquid
+  assign store_name = shop.name | capitalize | split: "-"
+  assign blocks = section.blocks | where: "type", "menu" 
+
+  assign logo = section.settings.logo
+  assign bg_color = section.settings.bg_color
+  assign text_color = section.settings.text_color
+
+  assign newsletter_title = section.settings.newsletter_title
+  assign socials_title = section.settings.socials_title
+  
+  assign socials_icon = section.settings.social
+  assign payment_icon = section.settings.payments
+%}
+
+<div 
+  style="background: {{ bg_color }}; color: {{ text_color }}"
+  class="w-full text-reg"
+>
+  <div vue class="max-w-xl m-auto pt-10 pb-7.5 px-4 desktop:max-screen desktop:px-10 desktop:py-20 desktop:flex desktop:flex-row desktop:justify-between">
+
+    <div class="desktop:max-w-sm">
+      <!-- logo -->
+      <a href="{{ routes.root_url }}" title="{{ shop.name }}">
+        {%- if logo -%}
+          {%- render 'image',
+            image: logo,
+            class: 'w-[8.125rem] desktop:w-[11.25rem]'
+          -%}
+        {%- else  -%}
+          <span>{{ store_name[0] }}</span>
+        {%- endif -%}
+      </a>
+
+      <!-- newsletter -->
+      {%- if newsletter_title -%}
+        <span class="block my-5 desktop:mt-10 desktop:mb-8">{{ newsletter_title }}</span>
+
+        {% form 'customer' %}
+          <div class="flex items-center justify-between my-5 bg-black-200 rounded-lg overflow-hidden">
+            <input type="email" placeholder="{{ 'newsletter_form.name' | t }}" class="flex-1 py-3 pl-5 bg-transparent border border-transparent rounded-l-lg placeholder:text-black-400 invalid:border-red">
+            <button class="bg-white text-black-100 border border-white py-3 px-4">{{ 'newsletter_form.submit' | t }}</button>
+          </div>
+        {% endform %}
+      {%- endif -%}
+    </div>
+
+
+    <!-- menus -->
+    {% for block in blocks %}
+      {%- if block.settings.menu -%}
+
+        {% unless forloop.index < 3 %}
+          <div>
+        {% endunless %}
+
+          <dropdown-item type="footer" class="border-b border-black-300 desktop:border-b-0"
+            :data="[
+              {
+                title: {{ block.settings.menu_title | json | replace: '"', "'" }},
+                iconColor: '{{ text_color }}',
+                links: [{% for link in linklists[block.settings.menu].links %}
+                {
+                  title: '{{ link.title }}',
+                  url: '{{ link.url }}'
+                },
+                {% endfor %}]
+              }]"
+            ></dropdown-item>
+        
+          {% unless forloop.last %}
+            <div class="hidden border-r border-black-300 mb-6 desktop:block"></div>
+          {% endunless %}
+
+      {%- endif -%}
+    {% endfor %}
+
+      <!-- social icons -->
+      {%- if socials_icon -%}
+        <dropdown-item type="social" class="border-b border-black-300 desktop:border-b-0"
+          :data="[
+            {
+              title: '{{ socials_title }}',
+              iconColor: '{{ text_color }}',
+              socialColor: '#666666',
+              facebook: {{ settings.social_facebook_link | json | replace: '"', "'" }},
+              instagram: {{ settings.social_instagram_link | json | replace: '"', "'" }},
+              instagram: {{ settings.social_pinterest_link | json | replace: '"', "'" }},
+            }]">
+        </dropdown-item>
+      {%- endif -%}
+
+    {% unless forloop.index < 3 %}
+      </div>
+    {% endunless %}
+
+  </div>
+
+  <!-- bottom -->
+  <div class="bg-black-150 py-5 px-8 desktop:flex desktop:justify-between">
+    <ul class="flex-center flex-wrap gap-2 text-black-300 desktop:gap-4">
+      <li class="shrink-0 after:content-['|'] after:ml-2 desktop:after:ml-4">
+        {{ "now" | date: "%Y" | prepend: "@" }}
+        <span>{{ store_name[0] }}</span>
+      </li>
+      {% for link in linklists.policies.links %}
+        <li class="shrink-0 after:content-['|'] after:ml-2 last:after:content-[''] desktop:after:ml-4">
+          <a href="{{ link.url }}" class="hover:underline">{{ link.title }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  
+    {%- if payment_icon -%}
+      {%- render 'payment-icons' -%}
+    {%- endif -%}
+  </div>
+</div>

@@ -1,0 +1,18 @@
+{
+  "sections": {
+    "main": {
+      "type": "template-product",
+      "settings": {
+      }
+    },
+    "testimonials": {
+      "type": "product-testimonials",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "main",
+    "testimonials"
+  ]
+}

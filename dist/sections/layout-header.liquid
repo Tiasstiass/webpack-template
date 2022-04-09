@@ -1,0 +1,140 @@
+{%- render 'layout-header', section: section -%}
+
+{% javascript %}
+  document.addEventListener("page:loaded", () => {
+    let headerWrapper = document.querySelector("#header-wrapper");
+    let headerEl = document.querySelector("#header");
+
+    // set height of wrapper to push main content below
+    if (headerWrapper) {
+      headerWrapper.style.height = `${headerEl.offsetHeight}px`;
+    }
+    else {
+      // change header styling on scroll
+      window.onscroll = () => {
+        window.pageYOffset > 0 ? headerEl.classList.add("!header-hover") : headerEl.classList.remove("!header-hover")
+      };
+    }
+  });
+{% endjavascript %}
+
+
+<!-- mobile drawer -->
+{%- capture layout_drawer -%}
+  {%- render 'nav-drawer' -%}
+{%- endcapture -%}
+
+{%- render 'modal-popup'
+  id: 'drawer-menu'
+  extraClasses: 'drawer-menu sidebar-right z-[990] min-h-screen h-full overflow-y-scroll overflow-x-hidden'
+  extraAttributes: 'style="width: 484px; max-width: 85vw; height: fit-content; min-height: 100vh;"'
+  content: layout_drawer
+-%}
+
+
+{% schema %}
+{
+  "name": "Header",
+  "class": "vue-header",
+  "tag": "header",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Mega menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_megamenu",
+      "label": "Enable Mega-menu",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_2",
+      "label": "Menu 2"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_3",
+      "label": "Menu 3"
+    },
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "checkbox",
+      "id": "header_overlap",
+      "label": "Header overlapping",
+      "info": "turns all elements color to white",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_dark",
+      "label": "Logo (Dark)"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_white",
+      "label": "Logo (White)"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#000"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_desktop",
+      "label": "Menu Desktop",
+      "default": "main-menu"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_mobile",
+      "label": "Menu Mobile",
+      "default": "main-menu"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "banner",
+      "name": "Banner",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "banner_image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "banner_title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "banner_btn_text",
+          "label": "Button text"
+        },
+        {
+          "type": "url",
+          "id": "banner_btn_url",
+          "label": "Button link"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

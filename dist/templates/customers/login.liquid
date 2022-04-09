@@ -1,0 +1,46 @@
+{% layout 'theme' %}
+
+<div class="max-w-md m-auto py-10 px-4 text-reg">
+  <h1 class="uppercase">{{ 'customer.entry.log_in' | t }}</h1>
+
+  {% comment %} Customer Account Login {% endcomment %}
+  <div class="mb-20">
+
+    {%- form "customer_login", class: "flex flex-col" -%}
+      <div class="py-5 text-red text-center">
+        {{ form.errors | default_errors }}
+      </div>
+
+      <label class="font-semibold" for="email">{{ 'form.email' | t }}</label>
+      <input autocapitalize="off" autocorrect="off" autofocus class="{%- if form.errors contains 'email' -%} error{%- endif -%} h-12 mb-8 mt-2 border border-black-100 rounded-sm p-2 pl-4" name="customer[email]" placeholder="Enter your email" required type="email">
+
+      {%- if form.password_needed -%}
+        <label class="font-semibold" for="password">{{ 'form.password' | t }}</label>
+        <input class="{% if form.errors contains 'password' %} error{% endif %} h-12 mb-8 mt-2 border border-black-100 rounded-sm p-2 pl-4" name="customer[password]" placeholder="Enter your password" required type="password" value="">
+      {%- endif -%}
+
+      <button class="py-2 bg-black-100 text-white rounded-sm uppercase mb-2" type="submit">{{ 'customer.entry.log_in' | t }}</button>
+      <button class="py-2 bg-black-100 text-white rounded-sm uppercase" onclick="window.location.href='/account/register'">{{ 'customer.entry.create_account' | t | customer_register_link }}</button>
+    {%- endform -%}
+  </div>
+  <div>
+
+    {% comment %} Customer Account Register {% endcomment %}
+    <h2 class="h1 mb-8 uppercase">{{ 'action.reset_password' | t }}</h2>
+
+    {%- form 'recover_customer_password', class: "flex flex-col" -%}
+
+      {%- if form.posted_successfully? -%}
+        <div role="status">
+          <p class="text-center">{{ 'customer.entry.reset_password_notice' | t }}</p>
+        </div>
+      {%- endif -%}
+
+      {{ form.errors | default_errors }}
+      <label class="font-semibold" for="email">{{ 'form.email' | t }}</label>
+      <input autocapitalize="off " autocorrect="off" class="h-12 mb-8 mt-2  border border-black-100 rounded-sm p-2 pl-4{%- if form.errors contains 'email' -%} error{%- endif -%}" name="email" placeholder="Enter your email" required type="email" value="">
+
+      <button class="py-2 bg-black-100 text-white rounded-sm uppercase" type="submit">{{ 'action.reset_password' | t }}</button>
+    {%- endform -%}
+  </div>
+</div>
